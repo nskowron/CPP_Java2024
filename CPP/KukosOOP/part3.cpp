@@ -3,6 +3,8 @@
 #include <string>
 #include <exception>
 
+#define LOG_LOC() std::string(__FILE__) + ":" + std::to_string(__LINE__) + " [" + std::string(__func__) + "] "
+
 class Student
 {
 private:
@@ -19,7 +21,7 @@ public:
         {
             std::cout<<"Student is too young"<<std::endl;
             is_active = false;
-            throw std::invalid_argument("Age should be > 18, age: " + std::to_string(age));
+            throw std::invalid_argument(LOG_LOC() + "Age should be > 18, age: " + std::to_string(age));
         }
         std::cout<<"Student created with age "<< age <<" and name "<< name <<std::endl;
     }
