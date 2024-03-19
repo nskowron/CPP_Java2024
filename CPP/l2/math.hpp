@@ -3,5 +3,4 @@
 
 typedef class Math Math;
 
-
 #endif
