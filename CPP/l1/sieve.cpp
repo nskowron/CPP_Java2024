@@ -29,7 +29,7 @@ std::vector<size_t> Sieve::primes_sieve(const size_t n) noexcept(false)
 
     std::vector<size_t>primes;
 
-    for(size_t j = 2; j <= n; j++)
+    for(size_t j = 2; j < n; j++)
     {
         if(prime[j])
         {

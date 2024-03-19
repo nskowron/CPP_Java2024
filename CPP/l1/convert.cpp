@@ -7,6 +7,7 @@
 
 #include <utils.hpp>
 
+template size_t Convert::string_to(const std::string& s);
 template <typename T>
 T Convert::string_to(const std::string& s)
 {
@@ -18,7 +19,7 @@ T Convert::string_to(const std::string& s)
 
     if(ss.fail())
     {
-        throw std::invalid_argument(LOC() + "unable to convert " + s + typeid(T).name());
+        throw std::invalid_argument(LOC() + "unable to convert string:  " + s + " to " /*+ typeid(T).name()*/ + "desired data-type");
     }
 
     return result;

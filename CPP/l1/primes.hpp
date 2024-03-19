@@ -12,6 +12,7 @@ public:
     Primes() = delete;
     Primes(const size_t n);
     size_t operator[](const size_t n);
+    void display();
 
 };
 

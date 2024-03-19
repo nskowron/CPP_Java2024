@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <stdlib.h>
 #include <string>
+#include <iostream>
 
 #include <sieve.hpp>
 #include <utils.hpp>
@@ -22,4 +23,13 @@ size_t Primes::operator[](const size_t n)
     }
 
     return primes[n];
+}
+
+void Primes::display()
+{
+    std::cout<<"Full list: ";
+    for(size_t i = 0; i < primes.size(); i++)
+    {
+        std::cout<< primes[i] << " ";
+    }
 }
