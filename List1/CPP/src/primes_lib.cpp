@@ -19,10 +19,15 @@ std::vector<std::size_t> PrimesLIB::Sieve(std::size_t n)
     {
         if (is_prime[i])
         {
-            primes.push_back(i);
             for(std::size_t j = i * i; j <= n; j += i)
                 is_prime[j] = false;
         }
+    }
+
+    for(size_t i = 2; i <= n; ++i)
+    {
+        if(is_prime[i])
+            primes.push_back(i);
     }
 
     return primes;
