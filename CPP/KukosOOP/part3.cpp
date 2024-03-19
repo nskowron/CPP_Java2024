@@ -12,7 +12,8 @@ private:
 
 public:
     Student() = delete;
-    Student(const unsigned age, const std::string& name) // pamiętaj o referencji
+    Student(const unsigned age, const std::string& name) noexcept(false) //czy rzuca exception
+    // pamiętaj o referencji
     : age(age), name(name), is_active(true) // lista init (ten pierwszy to "this")
     {
         if (age <19)
@@ -24,29 +25,28 @@ public:
         std::cout<<"Student created with age "<< age <<" and name "<< name <<std::endl;
     }
 
-    Student(const unsigned age)
+    Student(const unsigned age) noexcept(false)
     : Student(age, "Unknown")
     {
         std::cout<<"Student created only with age "<< age <<std::endl;
     }
 
-    ~Student() // destruktor!
+    ~Student() noexcept(true) // destruktor!
     {
         std::cout<<"student destroyed"<<std::endl;
     }
 
-    int get_age() const // daje znać że nie zmieniam danych klasy
+    int get_age() const noexcept(false) // daje znać że nie zmieniam danych klasy
     {   
         if(is_active == false)
         {
-            std::cout<<"student is not active"<<std::endl;
-            return 0;
+            throw std::runtime_error("Student is not active");
         }
 
         return age;
     }
 
-    void set_age(const unsigned age)
+    void set_age(const unsigned age) noexcept(true)
     {
         if(is_active == false)
         {
@@ -62,7 +62,7 @@ public:
         this->age = age;
     }
 
-    const std::string& get_name() const //stały string przez referencje
+    const std::string& get_name() const noexcept(true) //stały string przez referencje
     {
         if(is_active == false)
         {
@@ -83,6 +83,10 @@ int main()
     catch(const std::invalid_argument& e)
     {
         std::cerr<<e.what()<<std::endl;  // e.what zwraca co tam wpisaliśmy w exception (linijka 22)  
+    }
+    catch(const std::runtime_error& e)
+    {
+        std::cerr<<e.what()<<std::endl;
     }
     
     Student kobyla(55);
