@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-PrimeNumbers::PrimeNumbers(std::size_t n)
+PrimeNumbers::PrimeNumbers(long long n)
 {
     if(n < 2)
     {

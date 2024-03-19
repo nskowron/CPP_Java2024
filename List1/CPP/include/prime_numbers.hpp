@@ -10,7 +10,7 @@ private:
     std::vector<std::size_t> nums;
 
 public:
-    PrimeNumbers(std::size_t n) noexcept(false);
+    PrimeNumbers(long long n) noexcept(false);
     ~PrimeNumbers() = default;
 
     std::size_t number(int m) const noexcept(false);

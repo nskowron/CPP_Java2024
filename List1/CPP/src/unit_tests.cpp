@@ -94,6 +94,6 @@ void UnitTests::TestPrimeNumbers()
 void UnitTests::TestConverter()
 {
     {
-        assert(ConverterLIB::ConvertStringTo<std::size_t>("0") == 0);
+        assert(ConverterLIB::ConvertStringTo<int>("0") == 0);
     }
 }
