@@ -1,7 +1,9 @@
 #include <stdlib.h> 
 
-typedef class math
+typedef class Math
 {
+    public:
+    
     static size_t factorial(const size_t n)
     {
         if(n<0)
