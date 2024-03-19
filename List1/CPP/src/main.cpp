@@ -1,13 +1,15 @@
 #include <prime_numbers.hpp>
-// #include <unit_tests.hpp>
+#include <unit_tests.hpp>
 #include <converter_lib.hpp>
 
 #include <vector>
 #include <iostream>
+#include <cassert>
 
 int main(const int argc, const char* const argv[])
 {
-    ConverterLIB::func();
+    // UnitTests::TestAll();
+
     if(argc > 1)
     {
         std::size_t n = ConverterLIB::ConvertStringTo<std::size_t>(std::string(argv[1]));

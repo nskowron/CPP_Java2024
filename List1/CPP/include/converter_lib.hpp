@@ -9,8 +9,6 @@ public:
     ConverterLIB() = delete;
     ~ConverterLIB() = delete;
 
-    static void func() {}
-
     template <typename T>
     static T ConvertStringTo(const std::string& s) noexcept(false);
 };

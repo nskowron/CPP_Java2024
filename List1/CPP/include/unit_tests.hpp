@@ -7,7 +7,7 @@ public:
     UnitTests() = delete;
     ~UnitTests() = delete;
 
-    //static void TestPrimeNumbersException(std::size_t n) noexcept(false);
+    static void TestConverter() noexcept(false);
     static void TestPrimeNumbers() noexcept(false);
     static void TestAll() noexcept(false);
 };
