@@ -18,7 +18,7 @@ T Convert::string_to(const std::string& s)
 
     if(ss.fail())
     {
-        throw std::invalid_argument(LOC() + "unable to convert " + s + typeid(T).name())
+        throw std::invalid_argument(LOC() + "unable to convert " + s + typeid(T).name());
     }
 
     return result;

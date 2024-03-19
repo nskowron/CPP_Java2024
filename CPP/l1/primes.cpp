@@ -14,9 +14,9 @@ Primes::Primes(const size_t n)
 {
 }
 
-const size_t Primes::operator[](const size_t n)
+size_t Primes::operator[](const size_t n)
 {
-    if(n > primes.size() || n < 0)
+    if(n > primes.size())
     {
         throw std::invalid_argument(LOC() + "got " + std::to_string(n) + " which is over the size of the generated primes vector");
     }
