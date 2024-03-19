@@ -1,8 +1,7 @@
 #ifndef SIEVE_HPP
 #define SIEVE_HPP
 
-#include<exception>
-#include<vector>
+#include <vector>
 
 class Sieve
 {

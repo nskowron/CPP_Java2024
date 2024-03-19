@@ -11,7 +11,8 @@ private:
 public:
     Primes() = delete;
     Primes(const size_t n);
-    const size_t get_prime(const size_t n);
+    const size_t operator[](const size_t n);
+
 };
 
 #endif

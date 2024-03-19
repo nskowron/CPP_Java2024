@@ -1,19 +1,20 @@
-#include<sieve.hpp>
+#include <sieve.hpp>
 
 #include <stdlib.h> 
 #include <vector>
+#include <stdexcept>
+#include <string>
 
-
+#include <utils.hpp>
     
 std::vector<size_t> Sieve::primes_sieve(const size_t n) noexcept(false)
 {
     if(n<2)
     {
-        //wstaw error
-        return;
+        throw std::invalid_argument(LOC() + "got " + std::to_string(n) + " which is less that 2");
     }
 
-    bool prime[n+1];
+    std::vector<bool> prime(n+1, true);
 
     for(size_t p = 2; p*p < n; p++)
     {
