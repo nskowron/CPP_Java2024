@@ -22,13 +22,13 @@ public final class Main
                 }
                 catch(final Exception e)
                 {
-                    System.out.println(args[i] + " - " + e.getMessage() + "\n" + e.getStackTrace()[e.getStackTrace().length - 1]);
+                    System.out.println(args[i] + " - " + e.getStackTrace()[e.getStackTrace().length - 1] + " " + e.getMessage());
                 }
             }
         }
         catch(final Exception e)
         {
-            System.out.println(args[0] + " - " + e.getMessage() + "\n" + e.getStackTrace()[e.getStackTrace().length - 1]);
+            System.out.println(args[0] + " - " + e.getStackTrace()[e.getStackTrace().length - 1] + " " + e.getMessage());
         }
     }
 }
