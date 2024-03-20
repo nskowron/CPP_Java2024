@@ -1,4 +1,5 @@
 #include <primes_lib.hpp>
+#include <utils.hpp>
 
 #include <vector>
 #include <cmath>
@@ -9,7 +10,7 @@ std::vector<std::size_t> PrimesLIB::Sieve(std::size_t n)
 {
     if(n < 2)
     {
-        throw std::out_of_range("n should be >= 2, got " + std::to_string(n));
+        throw std::out_of_range(LOG_LOC() + "n should be >= 2, got " + std::to_string(n));
     }
 
     std::vector<std::size_t> primes{};

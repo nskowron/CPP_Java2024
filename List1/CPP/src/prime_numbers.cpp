@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-PrimeNumbers::PrimeNumbers(long long n)
+PrimeNumbers::PrimeNumbers(long long n) noexcept(false)
 {
     if(n < 2)
     {
@@ -14,7 +14,7 @@ PrimeNumbers::PrimeNumbers(long long n)
     nums = PrimesLIB::Sieve(n);
 }
 
-std::size_t PrimeNumbers::number(int m) const
+std::size_t PrimeNumbers::number(int m) const noexcept(false)
 {
     if(m < 0 || m >= nums.size())
     {

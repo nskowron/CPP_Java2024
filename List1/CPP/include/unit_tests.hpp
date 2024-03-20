@@ -7,9 +7,9 @@ public:
     UnitTests() = delete;
     ~UnitTests() = delete;
 
-    static void TestConverter() noexcept(false);
-    static void TestPrimeNumbers() noexcept(false);
-    static void TestAll() noexcept(false);
+    static void TestConverter();
+    static void TestPrimeNumbers();
+    static void TestAll();
 };
 
 #endif

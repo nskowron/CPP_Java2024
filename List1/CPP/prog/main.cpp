@@ -1,5 +1,4 @@
 #include <prime_numbers.hpp>
-#include <unit_tests.hpp>
 #include <converter_lib.hpp>
 
 #include <vector>
@@ -8,7 +7,6 @@
 
 int main(const int argc, const char* const argv[])
 {
-    // UnitTests::TestAll();
     if(argc < 2)
     {
         std::cerr << "Not enough arguments\n";
