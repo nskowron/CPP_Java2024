@@ -15,7 +15,7 @@ public class PascalsTriangle
     {
         if(m < 0 || m > n)
         {
-            throw new IllegalArgumentException("m should be 0 < m < " + n + ", got " + m);
+            throw new IllegalArgumentException("m should be 0 <= m <= " + n + ", got " + m);
         }
         return Math.NewtonSymbol(n, m);
     }

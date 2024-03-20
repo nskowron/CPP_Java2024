@@ -1,88 +1,56 @@
 #include <unit_tests.hpp>
-#include <prime_numbers.hpp>
+#include <pascals_triangle.hpp>
 #include <converter_lib.hpp>
 
 #include <cassert>
 
 void UnitTests::TestAll()
 {
-    TestPrimeNumbers();
+    TestPascalsTriangle();
     TestConverter();
 }
 
-void UnitTests::TestPrimeNumbers()
+void UnitTests::TestPascalsTriangle()
 {
     {
-        PrimeNumbers(2);
-        PrimeNumbers(23);
-        PrimeNumbers(65973512);
-    }
+        PascalsTriangle PT(5);
+        assert(PT.element(1) == 5);
+        assert(PT.element(2) == 10);
+        assert(PT.element(3) == 10);
+        assert(PT.element(4) == 5);
+        assert(PT.element(5) == 1);
 
-    {
-        PrimeNumbers PM(87620545);
-        assert(PM.number(0) == 2);
-        assert(PM.number(4) == 11);
-    }
-
-    {
-        PrimeNumbers PM(100);
-        assert(PM.number(0) == 2);
-        assert(PM.number(7) == 19);
-        assert(PM.number(24) == 97);
-
-        try
-        {
-            PM.number(25);
-
-            assert(false);
-        }
-        catch(const std::exception& e)
-        {
-            assert(true);
-        }
-    }
-
-    {
-        PrimeNumbers PM(53);
-        assert(PM.number(15) == 53);
-
-        try
-        {
-            PM.number(16);
-
-            assert(false);
-        }
-        catch(const std::exception& e)
-        {
-            assert(true);
-        }
-        try
-        {
-            PM.number(-1);
-
-            assert(false);
-        }
-        catch(const std::exception& e)
-        {
-            assert(true);
-        }
+        std::vector<unsigned long long> row = PT.row();
+        assert(row[2] == 10);
+        assert(row[4] == 5);
+        assert(row[5] == 1);
     }
 
     try
     {
-        PrimeNumbers(1);
-
+        PascalsTriangle PT(-12);
         assert(false);
     }
     catch(const std::exception& e)
     {
         assert(true);
     }
-    
+
     try
     {
-        PrimeNumbers(0);
+        PascalsTriangle PT(12);
+        PT.element(13);
+        assert(false);
+    }
+    catch(const std::exception& e)
+    {
+        assert(true);
+    }
 
+    try
+    {
+        PascalsTriangle PT(30);
+        PT.element(-13);
         assert(false);
     }
     catch(const std::exception& e)
