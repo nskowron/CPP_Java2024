@@ -15,8 +15,8 @@ Pascal::Pascal(const long int n)
 
 size_t Pascal::operator[](const long int n)
 {
-    Validate::is_left_more_than_right(row.size(), n);
-    Validate::is_left_more_than_right(n, 0);
+    Validate::is_left_more_than_right(row.size(), n, LOC());
+    Validate::is_left_more_than_right(n, 0, LOC());
 
     return row[n];
 }

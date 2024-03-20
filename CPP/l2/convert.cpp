@@ -20,7 +20,7 @@ T Convert::string_to(const std::string& s)
 
     if(ss.fail())
     {
-        throw std::invalid_argument(LOC() + "unable to convert string: " + s + " to " /*+ typeid(T).name()*/ + "desired data-type");
+        throw std::invalid_argument(LOC() + "unable to convert string: '" + s + "' to " /*+ typeid(T).name()*/ + "desired data-type");
     }
 
     return result;

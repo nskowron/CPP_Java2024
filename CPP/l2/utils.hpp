@@ -10,11 +10,7 @@ class Validate
     ~Validate() = delete;
 
 public:
-    static void is_left_more_than_right(long int left, long int right) noexcept(false);
-    static void is_from_interval(long int begin, long int end, long int input) noexcept(false);
-
-    template <typename source, typename target>
-    static void conversion_possible_to() noexcept(false);
+    static void is_left_more_than_right(long int left, long int right, std::string loc) noexcept(false); // nie wiem jak dodać " & " jeszcze
 };
 
 #endif
