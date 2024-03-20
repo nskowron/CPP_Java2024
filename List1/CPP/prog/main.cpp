@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <iostream>
-#include <cassert>
 
 int main(const int argc, const char* const argv[])
 {
@@ -34,7 +33,7 @@ int main(const int argc, const char* const argv[])
     }
     catch(const std::exception& e)
     {
-        std::cout << argv[1] << " - " << e.what() << '\n';
+        std::cerr << argv[1] << " - " << e.what() << '\n';
         return 1;
     }
 
