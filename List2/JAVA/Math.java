@@ -1,4 +1,4 @@
-public final class Math
+public class Math
 {
     private Math() throws InstantiationError
     {

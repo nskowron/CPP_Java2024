@@ -1,4 +1,4 @@
-public final class PascalsTriangle
+public class PascalsTriangle
 {
     private int n;
 
@@ -22,7 +22,6 @@ public final class PascalsTriangle
 
     public long[] Row()
     {
-        // upewnij sie ze na pewno nie oddasz referencji do lokalnej zmiennej
         long [] result = new long [n + 1];
         for(int m = 0; m <= n; ++m)
         {
