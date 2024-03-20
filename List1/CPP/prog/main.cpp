@@ -14,21 +14,6 @@ int main(const int argc, const char* const argv[])
     }
 
     PrimeNumbers* PM;
-    // try
-    // {
-    //     int n = ConverterLIB::ConvertStringTo<int>(std::string(argv[1]));
-    //     PM = new PrimeNumbers(n);
-    // }
-    // catch(const std::out_of_range& e)
-    // {
-    //     std::cout << argv[1] << " - wrong range\n";
-    //     return 1;
-    // }
-    // catch(const std::invalid_argument& e)
-    // {
-    //     std::cout << argv[1] << " - invalid data\n";
-    //     return 1;
-    // }
 
     try
     {
@@ -40,8 +25,6 @@ int main(const int argc, const char* const argv[])
         std::cout << argv[1] << " - " << e.what() << '\n';
         return 1;
     }
-    
-    
 
     for(unsigned int i = 2; i < argc; ++i)
     {
@@ -55,14 +38,6 @@ int main(const int argc, const char* const argv[])
         {
             std::cout << e.what() << '\n';
         }
-        // catch(const std::out_of_range& e)
-        // {
-        //     std::cout << "wrong range\n";
-        // }
-        // catch(const std::invalid_argument& e)
-        // {
-        //     std::cout << "invalid data\n";
-        // }
     }
 
     delete PM;
