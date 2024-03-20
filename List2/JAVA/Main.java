@@ -8,15 +8,27 @@ public final class Main
             return;
         }
 
-        PascalsTriangle PM;
         try
         {
             int n = Integer.parseInt(args[0]);
-            PM = new PascalsTriangle(n);
+            PascalsTriangle PM = new PascalsTriangle(n);
+
+            for(int i = 1; i < args.length; ++i)
+            {
+                try
+                {
+                    int m = Integer.parseInt(args[i]);
+                    System.out.println(args[i] + " - " + PM.Element(m));
+                }
+                catch(final Exception e)
+                {
+                    System.out.println(args[i] + " - " + e.getMessage() + "\n" + e.getStackTrace()[e.getStackTrace().length - 1]);
+                }
+            }
         }
-        catch(final NumberFormatException e)
+        catch(final Exception e)
         {
-            System.out.println();
+            System.out.println(args[0] + " - " + e.getMessage() + "\n" + e.getStackTrace()[e.getStackTrace().length - 1]);
         }
     }
 }

@@ -5,7 +5,7 @@ public class Math
         throw new InstantiationError("Cannot create instance of a static class Math.");
     }
 
-    public static long NewtonSymbol(int n, int k)
+    public static long NewtonSymbol(final int n, final int k)
     {
         if(n < 0 || k < 0)
         {

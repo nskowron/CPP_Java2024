@@ -2,7 +2,7 @@ public class PascalsTriangle
 {
     private int n;
 
-    public PascalsTriangle(int n) throws IllegalArgumentException
+    public PascalsTriangle(final int n) throws IllegalArgumentException
     {
         if(n < 0)
         {
@@ -11,7 +11,7 @@ public class PascalsTriangle
         this.n = n;
     }
 
-    public long Element(int m) throws IllegalArgumentException
+    public long Element(final int m) throws IllegalArgumentException
     {
         if(m < 0 || m > n)
         {
