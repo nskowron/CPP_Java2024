@@ -5,13 +5,25 @@
 
 #include <primes.hpp>
 #include <convert.hpp>
+#include <utils.hpp>
 
 
 int main(const int argr, const char* const argv[]) // ilosc argumentów, tablica charów tych argumentów
 {
-    if(argr > 1)
+    if(argr <= 1)
     {
-        size_t n = Convert::string_to<size_t>(std::string(argv[1]));
+        std::cout<<"Usage: ./main <Primes_Smaller_Than> <arg 1> <arg 2> <arg 3> ...."<<std::endl;
+        return 0;
+    }
+    
+    else if(argr > 1)
+    {   
+        int n = Convert::string_to<size_t>(std::string(argv[1]));
+        if(n < 1)
+        {
+            std::cerr<<LOC()<<" Invalid Range "<<std::endl;
+            return 0;
+        }
         Primes primeLIST(n);
 
         for(unsigned i = 2; i < argr; i++)
@@ -27,6 +39,7 @@ int main(const int argr, const char* const argv[]) // ilosc argumentów, tablica
             }
         }
 
+        std::cout<<std::endl;
         primeLIST.display();
     }
 
