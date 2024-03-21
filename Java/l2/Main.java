@@ -15,14 +15,8 @@ public final class Main
         {
             n = Integer.parseInt(args[0]);
             PT = new PascalsTriangle(n);
-        }
-        catch(final NumberFormatException e)
-        {
-            System.out.println(args[0] + " : Not a valid entry");
-            return;
-        }
         
-        System.out.println("\n");
+            System.out.println("\n");
 
         for(int i = 1; i < args.length; i++)
         {   
@@ -30,14 +24,15 @@ public final class Main
             {
                 System.out.println(n + ":row " + PT.Element(Integer.parseInt(args[i])) + ":row element " + args[i] + ":element id " ); // nr rzędu, element tego rzędu , numer tego elementu
             }
-            catch(final NumberFormatException e)
+            catch(final Exception e)
             {
-                System.out.println(args[i] + " : Not a valid entry");
+                System.out.println(args[i]+ " :: " + e.getStackTrace()[e.getStackTrace().length-1]+ /*" :: " + e.getCause() +*/ " :: " + e.getMessage());
             }
-            catch(final IllegalArgumentException e)
-            {
-                System.out.println(args[i] + " : Not a valid number");
-            }
+        }
+        }
+        catch (final Exception e)
+        {
+            System.out.println(args[0]+ " :: " + e.getStackTrace()[e.getStackTrace().length-1]+ /*" :: " + e.getCause() +*/ " :: " + e.getMessage());
         }
     }
 }

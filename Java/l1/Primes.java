@@ -20,7 +20,7 @@ public class Primes
     {
         if(n < 0 || n > primes.size())
         {
-            throw new IllegalArgumentException("Provided id: "+ n +" is out of range:");
+            throw new IllegalArgumentException("Provided id: "+ (n+1) +" is out of range:");
         }
 
         return primes.get(n);
