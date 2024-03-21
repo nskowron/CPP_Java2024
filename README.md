@@ -1,6 +1,6 @@
-## My project for university
+# My project for university
 
-# List1: 
+## List1: 
 
 Generates prime numbers
 
@@ -12,7 +12,7 @@ main \<n\> \<m1\> \<m2\> ...
 - gives m1th, m2th... prime numbers
 
 
-# List2:
+## List2:
 
 Generates pascal's triangle row
 
