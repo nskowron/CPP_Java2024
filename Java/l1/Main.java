@@ -8,13 +8,13 @@ public final class Main
             return;
         }
 
-        //PascalsTriangle PT;
+        Primes PRIMELIST;
         int n;
 
         try
         {
             n = Integer.parseInt(args[0]);
-            //PT = new PascalsTriangle(n);
+            PRIMELIST = new Primes(n);
         }
         catch(final NumberFormatException e)
         {
@@ -28,7 +28,7 @@ public final class Main
         {   
             try
             {
-                System.out.println(n + ":row " + /*PT.Element(Integer.parseInt(args[i])) +*/ ":row element " + args[i] + ":element id " ); // nr rzędu, element tego rzędu , numer tego elementu
+                System.out.println("For: " + PRIMELIST.get(Integer.parseInt(args[i])-1) + " is the " + args[i] + "th prime < " + n); // nr rzędu, element tego rzędu , numer tego elementu
             }
             catch(final NumberFormatException e)
             {

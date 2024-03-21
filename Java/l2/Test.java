@@ -2,7 +2,7 @@ public final class Test
 {
     private Test() throws InstantiationError
     {
-        throw new InstantiationError("Cannot create instance of a static class Test.");
+        throw new InstantiationError("This is a static class you moron.");
     }
 
     public static void main(final String[] args)
@@ -14,17 +14,16 @@ public final class Test
     public static void TestPascalsTriangle()
     {
         {
-            PascalsTriangle PT = new PascalsTriangle(5);
-            assert PT.Element(1) == 5;
-            assert PT.Element(2) == 10;
-            assert PT.Element(3) == 10;
-            assert PT.Element(4) == 5;
-            assert PT.Element(5) == 1;
+            PascalsTriangle PT = new PascalsTriangle(4);
+            assert PT.Element(0) == 1;
+            assert PT.Element(1) == 4;
+            assert PT.Element(2) == 6;
+            assert PT.Element(3) == 4;
+            assert PT.Element(4) == 1;
 
             long [] row = PT.Row();
-            assert row[2] == 10;
-            assert row[4] == 5;
-            assert row[5] == 1;
+            assert row[2] == 6;
+            assert row[4] == 1;
         }
 
         try

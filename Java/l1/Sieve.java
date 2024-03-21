@@ -4,18 +4,44 @@ public class Sieve
 {
     private Sieve() throws InstantiationError
     {
-        throw new InstantiationError("Cannot create instance of a static class Math.");
+        throw new InstantiationError("This is a static class you moron.");
     }
 
-    public static int[] sieve_make(final int n)
+    public static ArrayList<Integer> sieve_make(final int n)
     {
         if(n <= 2)
         {
-            throw new IllegalArgumentException("Argument has to be greater or equal to 2 (" + n + ")");
+            throw new IllegalArgumentException("Argument has to be >= 2 (" + n + ")");
         }
 
-        ArrayList<int> primes = new ArrayList<int>();
+        boolean[] prime = new boolean[n];
 
-        return result;
+        for (int i = 0; i < n; i++)
+        {
+            prime[i] = true;
+        }
+
+        for(int p = 2; p*p < n; p++)
+        {
+            if(prime[p])
+            {
+                for(int i = p*p; i < n; i += p)
+                {
+                    prime[i]=false;
+                }
+            }
+        }
+
+        ArrayList<Integer> primes = new ArrayList<Integer>();
+
+        for(int j = 2; j < n; j++)
+        {
+            if(prime[j])
+            {
+                primes.add(j); 
+            }
+        }
+
+        return primes;
     }
 }
