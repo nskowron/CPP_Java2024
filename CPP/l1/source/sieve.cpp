@@ -7,7 +7,7 @@
 
 #include <utils.hpp>
     
-std::vector<size_t> Sieve::primes_sieve(const size_t n) noexcept(false)
+std::vector<long int> Sieve::primes_sieve(const long int n) noexcept(false)
 {
     if(n<2)
     {
@@ -16,7 +16,7 @@ std::vector<size_t> Sieve::primes_sieve(const size_t n) noexcept(false)
 
     std::vector<bool> prime(n+1, true);
 
-    for(size_t p = 2; p*p < n; p++)
+    for(unsigned long p = 2; p*p < n; p++)
     {
         if(prime[p])
         {
@@ -27,9 +27,9 @@ std::vector<size_t> Sieve::primes_sieve(const size_t n) noexcept(false)
         }
     }
 
-    std::vector<size_t>primes;
+    std::vector<long int>primes;
 
-    for(size_t j = 2; j < n; j++)
+    for(unsigned long j = 2; j < n; j++)
     {
         if(prime[j])
         {

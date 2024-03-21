@@ -7,7 +7,7 @@ class Sieve
 {
 public:
 
-    static std::vector<size_t> primes_sieve(const size_t n) noexcept(false);
+    static std::vector<long int> primes_sieve(const long int n) noexcept(false);
 
 };
 

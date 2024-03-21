@@ -6,12 +6,12 @@
 class Primes
 {
 private:
-    std::vector<size_t> primes;
+    std::vector<long int> primes;
 
 public:
     Primes() = delete;
-    Primes(const size_t n);
-    size_t operator[](const size_t n);
+    Primes(const long int n) noexcept(false);
+    long int operator[](const long int n) noexcept(false);
     void display();
 
 };

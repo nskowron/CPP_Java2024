@@ -3,14 +3,13 @@
 #include <cassert>
 #include <stdexcept>
 
-#include <pascal.hpp>
+#include <primes.hpp>
 #include <convert.hpp>
-#include <newton.hpp>
 
 void TestRun::run_all()
 {
     void run_convert();
-    void run_pascal();
+    void run_primes();
 }
 
 void TestRun::run_convert()
@@ -48,53 +47,42 @@ void TestRun::run_convert()
 
 }
 
-void TestRun::run_pascal()
+void TestRun::run_primes()
 {
     {
-    Pascal test_pascal(4);
+    Primes test_primes(4);
 
-    assert(test_pascal[0] == 1);
-    assert(test_pascal[1] == 4);
-    assert(test_pascal[2] == 6);
-    assert(test_pascal[3] == 4);
-    assert(test_pascal[4] == 1);
+    assert(test_primes[0] == 2);
+    assert(test_primes[1] == 3);
+    assert(test_primes[2] == 5);
+    assert(test_primes[3] == 7);
+    assert(test_primes[4] == 11);
+    assert(test_primes[5] == 13);
+
     }
     
     try 
     {
-        Pascal test_pascal(15);
+        Primes test_primes(15);
 
-        test_pascal[16];
+        test_primes[16];
 
         assert(false);
     }
-    catch (const std::out_of_range& c)
+    catch (const std::invalid_argument& c)
     {
         assert(true);
     }
 
     try 
     {
-        Pascal test_pascal(10);
-
-        test_pascal[16];
-
-        assert(false);
-    }
-    catch (const std::out_of_range& c)
-    {
-        assert(true);
-    }
-
-    try 
-    {
-        Pascal test_pascal(20);
+        Primes test_pascal(15);
 
         test_pascal[-16];
 
         assert(false);
     }
-    catch (const std::out_of_range& c)
+    catch (const std::invalid_argument& c)
     {
         assert(true);
     }

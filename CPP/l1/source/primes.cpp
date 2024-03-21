@@ -10,16 +10,21 @@
 #include <utils.hpp>
 
 
-Primes::Primes(const size_t n)
+Primes::Primes(const long int n)
 : primes(Sieve::primes_sieve(n))
 {
 }
 
-size_t Primes::operator[](const size_t n)
+long int Primes::operator[](const long int n) noexcept(false)
 {
     if(n > primes.size())
     {
         throw std::invalid_argument(LOC() + "got " + std::to_string(n) + " which is over the size of the generated primes vector");
+    }
+
+    if(n < 0)
+    {
+        throw std::invalid_argument(LOC() + "got " + std::to_string(n) + " which is less than 0");
     }
 
     return primes[n];
@@ -28,7 +33,7 @@ size_t Primes::operator[](const size_t n)
 void Primes::display()
 {
     std::cout<<"Full list: ";
-    for(size_t i = 0; i < primes.size(); i++)
+    for(unsigned long i = 0; i < primes.size(); i++)
     {
         std::cout<< primes[i] << " ";
     }

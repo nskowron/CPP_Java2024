@@ -7,7 +7,7 @@ public:
 
     static void run_all(); 
     static void run_convert();
-    static void run_pascal();
+    static void run_primes();
 };
 
 #endif
