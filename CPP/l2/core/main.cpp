@@ -19,11 +19,11 @@ int main(const int argr, const char* const argv[]) // ilosc argumentów, tablica
     else if(argr > 1)
     {   
         long int n = Convert::string_to<long int>(std::string(argv[1]));
-        if(n < 1)
-        {
-            std::cerr<<LOC()<<" Invalid Range "<<std::endl;
-            return 0;
-        }
+        //if(n < 1)
+        //{
+        //   std::cerr<<LOC()<<" Invalid Range "<<std::endl;
+        //    return 0;
+        //}
         Pascal pascalROW(n);
 
         for(unsigned i = 2; i < argr; i++)
