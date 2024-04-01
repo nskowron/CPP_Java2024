@@ -1,5 +1,7 @@
-PATRZAJTA NA BRANCHE OSOBNYCH LUDZIÓW
+# Main Repository for Lazy People
 
-I TYLE
+## Active users
 
-MAIN JEST PUSTY
+### **- H20**
+**- Nelly**
+**- Preyik**
