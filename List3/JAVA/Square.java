@@ -2,7 +2,7 @@ public class Square extends Quad
 {
     public Square(double [] sides) throws IllegalArgumentException
     {
-        super(sides, 90);
+        super(sides, 90, "Square");
 
         if(sides[0] != sides[1] || sides[1] != sides[2] || sides[2] != sides[3])
         {

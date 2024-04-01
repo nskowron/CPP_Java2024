@@ -1,2 +1,2 @@
-public abstract class Shape implements IShapeProperties
+public abstract class Shape implements IShape
 {}

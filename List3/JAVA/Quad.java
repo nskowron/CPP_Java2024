@@ -1,9 +1,10 @@
 public abstract class Quad extends Shape
 {
-    protected double [] sides;
-    protected double angle;
+    protected final double [] sides;
+    protected final double angle;
+    protected final String name;
 
-    public Quad(double [] sides, double angle) throws IllegalArgumentException
+    public Quad(double [] sides, double angle, String name) throws IllegalArgumentException
     {
         if(sides.length != 4)
         {
@@ -20,10 +21,21 @@ public abstract class Quad extends Shape
 
         this.sides = sides;
         this.angle = angle;
+        this.name = name;
+    }
+
+    public Quad(double [] sides, double angle) throws IllegalArgumentException
+    {
+        this(sides, angle, "Quad");
     }
 
     public double Circumference()
     {
         return sides[0] + sides[1] + sides[2] + sides[3];
+    }
+
+    public String Name()
+    {
+        return name;
     }
 }
