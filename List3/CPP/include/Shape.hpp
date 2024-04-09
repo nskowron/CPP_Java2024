@@ -5,10 +5,17 @@
 
 class Shape
 {
+protected:
+    std::string name;
+
+    Shape(std::string name);
+
 public:
-    virtual double Area();
-    virtual double Circumference();
-    virtual std::string Name();
+    virtual ~Shape() {}
+
+    virtual double Area() const = 0;
+    virtual double Circumference() const = 0;
+    virtual std::string Name() const;
 };
 
 #endif

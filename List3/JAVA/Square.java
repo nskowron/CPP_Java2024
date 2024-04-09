@@ -1,17 +1,26 @@
 public class Square extends Quad
 {
-    public Square(double [] sides) throws IllegalArgumentException
-    {
-        super(sides, 90, "Square");
+    protected final double side;
 
-        if(sides[0] != sides[1] || sides[1] != sides[2] || sides[2] != sides[3])
+    public Square(double side) throws IllegalArgumentException
+    {
+        super("Square");
+        if(side < 0)
         {
-            throw new IllegalArgumentException("Square should have all sides equal: " + sides[0] + ", " + sides[1] + ", " + sides[2] + ", " + sides[3]);
+            throw new IllegalArgumentException("Square side cannot be negative, got: " + side);
         }
+        this.side = side;
     }
 
+    @Override
+    public double Circumference()
+    {
+        return 4.0 * side;
+    }
+
+    @Override
     public double Area()
     {
-        return sides[0] * sides[0];
+        return side * side;
     }
 }

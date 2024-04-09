@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ShapeInstantiator
 {
     private ShapeInstantiator() throws InstantiationError
@@ -17,17 +19,28 @@ public class ShapeInstantiator
             double [] sides = {data[0], data[1], data[2], data[3]};
             double angle = data[4];
 
-            if(angle != 90)
+            if(sides[0] == sides[1] && sides[1] == sides[2] && sides[2] == sides[3])
             {
-                return new Rhombus(sides, angle);
+                if(angle == 90.0)
+                {
+                    return new Square(sides[0]);
+                }
+                else
+                {
+                    return new Rhombus(sides[0], angle);
+                }
             }
-            try
+            else
             {
-                return new Square(sides);
-            }
-            catch(IllegalArgumentException e)
-            {
-                return new Rectangle(sides);
+                Arrays.sort(sides);
+                if(sides[0] == sides[1] && sides[2] == sides[3] && angle == 90.0)
+                {
+                    return new Rectangle(sides[0], sides[2]);
+                }
+                else
+                {
+                    throw new IllegalArgumentException("Unknown quad for input: {" + sides[0] + ", " + sides[1] + ", " + sides[2] + ", " + sides[3] + "}, " + angle);
+                }
             }
         }
         else if(type.equals("o"))

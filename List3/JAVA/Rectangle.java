@@ -1,17 +1,28 @@
 public class Rectangle extends Quad
 {
-    public Rectangle(double [] sides) throws IllegalArgumentException
-    {
-        super(Algorythm.Sorted(sides), 90, "Rectangle");
+    protected final double side_1;
+    protected final double side_2;
 
-        if(this.sides[0] != this.sides[1] || this.sides[2] != this.sides[3])
+    public Rectangle(double side_1, double side_2) throws IllegalArgumentException
+    {
+        super("Rectangle");
+        if(side_1 < 0 || side_2 < 0)
         {
-            throw new IllegalArgumentException("Rectanle cannot have more than 2 different sides: " + sides[0] + ", " + sides[1] + ", " + sides[2] + ", " + sides[3]);
+            throw new IllegalArgumentException("Rectanle sides cannot be negative, got: " + side_1 + " " + side_2);
         }
+        this.side_1 = side_1;
+        this.side_2 = side_2;
     }
 
+    @Override
+    public double Circumference()
+    {
+        return 2.0 * side_1 + 2.0 * side_2;
+    }
+
+    @Override
     public double Area()
     {
-        return sides[0] * sides[2];
+        return side_1 * side_2;
     }
 }

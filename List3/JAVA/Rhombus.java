@@ -1,17 +1,32 @@
 public class Rhombus extends Quad
 {
-    public Rhombus(double [] sides, double angle)
-    {
-        super(sides, angle, "Rhombus");
+    protected final double side;
+    protected final double angle;
 
-        if(sides[0] != sides[1] || sides[1] != sides[2] || sides[2] != sides[3])
+    public Rhombus(double side, double angle)
+    {
+        super("Rhombus");
+        if(side < 0)
         {
-            throw new IllegalArgumentException("Rhombus should have all sides equal: " + sides[0] + ", " + sides[1] + ", " + sides[2] + ", " + sides[3]);
+            throw new IllegalArgumentException("Rhombus side cannot be negative, got: " + side);
         }
+        if(angle < 0 || angle > 180)
+        {
+            throw new IllegalArgumentException("Rhombus angle can be neither negative nor reflex, got: " + angle);
+        }
+        this.side = side;
+        this.angle = angle;
     }
 
+    @Override
+    public double Circumference()
+    {
+        return 4.0 * side;
+    }
+
+    @Override
     public double Area()
     {
-        return sides[0] * sides[0] * Math.sin(Math.toRadians(angle));
+        return side * side * Math.sin(Math.toRadians(angle));
     }
 }
