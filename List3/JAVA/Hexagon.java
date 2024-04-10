@@ -23,10 +23,4 @@ public class Hexagon extends Shape
     {
         return 1.5 * Math.sqrt(3) * side * side;
     }
-
-    @Override
-    public String Name()
-    {
-        return name;
-    }
 }

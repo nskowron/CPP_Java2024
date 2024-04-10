@@ -8,7 +8,7 @@ public final class Main
             return;
         }
 
-        try
+        try 
         {
             String type = args[0];
             double [] data = new double [args.length - 1];

@@ -23,10 +23,4 @@ public class Circle extends Shape
     {
         return Math.PI * radius * radius;
     }
-
-    @Override
-    public String Name()
-    {
-        return name;
-    }
 }

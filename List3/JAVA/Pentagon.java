@@ -23,10 +23,4 @@ public class Pentagon extends Shape
     {
         return 1.25 * side * side * (1.0 / Math.tan(Math.toRadians(36)));
     }
-
-    @Override
-    public String Name()
-    {
-        return name;
-    }
 }
