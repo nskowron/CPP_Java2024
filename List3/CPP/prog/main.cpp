@@ -31,7 +31,7 @@ int main(const int argc, const char* argv[])
     }
     catch(const std::invalid_argument& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cout << e.what() << '\n';
     }
     delete shape;
 }

@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <cmath>
 
-Rhombus::Rhombus(double side, double angle) : Quad("Rhombus"), side(), angle(angle)
+Rhombus::Rhombus(double side, double angle) : Quad("Rhombus"), side(side), angle(angle)
 {
     if(side < 0)
     {
