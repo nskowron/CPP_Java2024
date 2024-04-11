@@ -14,7 +14,7 @@ int main(const int argc, const char* argv[])
         return 0;
     }
 
-    Shape* shape;
+    Shape* shape = nullptr;
     try
     {
         std::string type(argv[1]);
@@ -27,11 +27,12 @@ int main(const int argc, const char* argv[])
 
         std::cout << shape->Name() << ": ";
         std::cout << "\nCircumference - " << shape->Circumference();
-        std::cout << "\nArea - " << shape->Area();
+        std::cout << "\nArea - " << shape->Area() << "\n";
     }
     catch(const std::invalid_argument& e)
     {
         std::cout << e.what() << '\n';
     }
+
     delete shape;
 }
