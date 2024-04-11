@@ -1,79 +1,164 @@
 public class Shapes
 {
-    private Shapes() throws InstantiationError
+    enum Shapes_OneParam implements IShapes_OneParam
     {
-        throw new InstantiationError("Cannot create instance of static class Shapes");
-    }
-
-    public enum Shape_OneParam implements IShape_OneParam 
-    {
-        CIRCLE, SQUARE, PENTAGON, HEXAGON;
-
-        public double Area(double param1) throws IllegalArgumentException
+        SQUARE
         {
-            return GetInstance(param1).Area();
-        }
-        public double Circumference(double param1) throws IllegalArgumentException
-        {
-            return GetInstance(param1).Circumference();
-        }
-        public String Name()
-        {
-            return GetInstance(0).Name();
-        }
-        private IShape GetInstance(double param1) throws IllegalArgumentException
-        {
-            switch (this)
+            @Override
+            public String Name()
             {
-                case CIRCLE:
-                    return new Circle(param1);
-            
-                case SQUARE:
-                    double[] sides_s = {param1, param1, param1, param1};
-                    return new Square(sides_s);
+                return "Square";
+            }
+    
+            @Override
+            public double Area(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return param * param;
+            }
+    
+            @Override
+            public double Circumference(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return 4.0 * param;
+            }
+        },
+        HEXAGON
+        {
+            @Override
+            public String Name()
+            {
+                return "Hexagon";
+            }
+    
+            @Override
+            public double Area(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return 1.5 * Math.sqrt(3) * param * param;
+            }
+    
+            @Override
+            public double Circumference(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return 6.0 * param;
+            }
+        },
+        PENTAGON 
+        {
+            @Override
+            public String Name() 
+            {
+                return "Pentagon";
+            }
+    
+            @Override
+            public double Area(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return 1.25 * param * param * (1.0 / Math.tan(Math.toRadians(36)));
+            }
+    
+            @Override
+            public double Circumference(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return 5.0 * param;
+            }
+        },
+        CIRCLE 
+        {
+            @Override
+            public String Name() {
+                return "Circle";
+            }
+    
+            @Override
+            public double Area(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return Math.PI * param * param;
+            }
+    
+            @Override
+            public double Circumference(double param) throws IllegalArgumentException
+            {
+                Shapes_OneParam.CheckParam(param);
+                return 2.0 * Math.PI * param;
+            }
+        };
 
-                case PENTAGON:
-                    return new Pentagon(param1);
-
-                case HEXAGON:
-                    return new Hexagon(param1);
-
-                default:
-                    throw new IllegalArgumentException("Unknown shape type");
+        static private void CheckParam(double param) throws IllegalArgumentException
+        {
+            if(param < 0)
+            {
+                throw new IllegalArgumentException("Parameter cannot be negative, got: " + param);
             }
         }
     }
 
-    public enum Shape_TwoParam implements IShape_TwoParam
+    enum Shapes_TwoParam implements IShapes_TwoParam
     {
-        RECTANGLE, RHOMBUS;
-
-        public double Area(double param1, double param2) throws IllegalArgumentException
+        RECTANGLE
         {
-            return GetInstance(param1, param2).Area();
-        }
-        public double Circumference(double param1, double param2) throws IllegalArgumentException
-        {
-            return GetInstance(param1, param2).Circumference();
-        }
-        public String Name()
-        {
-            return GetInstance(0, 0).Name();
-        }
-        private IShape GetInstance(double param1, double param2) throws IllegalArgumentException
-        {
-            switch (this)
+            @Override
+            public String Name()
             {
-                case RECTANGLE:
-                    double[] sides_re = {param1, param1, param2, param2};
-                    return new Rectangle(sides_re);
+                return "Rectangle";
+            }
+    
+            @Override
+            public double Area(double param1, double param2) throws IllegalArgumentException
+            {
+                Shapes_TwoParam.CheckParams(param1, param2);
+                return param1 * param2;
+            }
+    
+            @Override
+            public double Circumference(double param1, double param2) throws IllegalArgumentException
+            {
+                Shapes_TwoParam.CheckParams(param1, param2);
+                return 2.0 * param1 + 2.0 * param2;
+            }
+        },
+        RHOMBUS
+        {
+            @Override
+            public String Name()
+            {
+                return "Rhombus";
+            }
+    
+            @Override
+            public double Area(double param1, double param2) throws IllegalArgumentException
+            {
+                Shapes_TwoParam.CheckParams(param1, param2);
+                if(param2 > 180)
+                {
+                    throw new IllegalArgumentException("Rhombus angle cannot be reflex, got: " + param2);
+                }
+                return param1 * param1 * Math.sin(Math.toRadians(param2));
+            }
+    
+            @Override
+            public double Circumference(double param1, double param2) throws IllegalArgumentException
+            {
+                Shapes_TwoParam.CheckParams(param1, param2);
+                if(param2 > 180)
+                {
+                    throw new IllegalArgumentException("Rhombus angle cannot be reflex, got: " + param2);
+                }
+                return 4.0 * param1;
+            }
+        };
 
-                case RHOMBUS:
-                    double[] sides_rh = {param1, param1, param1, param1};
-                    return new Rhombus(sides_rh, param2);
-
-                default:
-                    throw new IllegalArgumentException("Unknown shape type");
+        static private void CheckParams(double param1, double param2) throws IllegalArgumentException
+        {
+            if(param1 < 0 || param2 < 0)
+            {
+                throw new IllegalArgumentException("Parameters cannot be negative, got: " + param1 + ", " + param2);
             }
         }
     }
