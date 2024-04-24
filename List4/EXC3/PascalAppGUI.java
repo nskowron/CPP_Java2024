@@ -15,13 +15,16 @@ public class PascalAppGUI
         box.getItems().addAll(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33);
         box.setPromptText("Choose number of row");
 
-        Sheet sheet = new Sheet(68, 68);
+        TextArea textArea = new TextArea();
+        textArea.setPromptText("Choose elements");
 
-        Button button = new ButtonPascal("Render", sheet, box);
+        Label label = new Label();
 
-        DropdownPane dropdown = new DropdownPane(box, button);
+        Button button = new ButtonPascalCPP("Render", box, textArea, label);
 
-        ScrollPane scroll = new ScrollPane(sheet);
+        DropdownPane dropdown = new DropdownTextPane(box, textArea, button);
+
+        ScrollPane scroll = new ScrollPane(label);
 
         VBox root = new VBox();
         root.getChildren().add(dropdown);
@@ -35,7 +38,7 @@ public class PascalAppGUI
         stage.setMinHeight(500);
         stage.setWidth(600);
         stage.setHeight(500);
-        stage.setTitle("Pascal's Triangle");
+        stage.setTitle("Pascal's Triangle's Row");
         stage.show();
         AppLogger.logger.log(Level.INFO, "Scene has been inited");
     }

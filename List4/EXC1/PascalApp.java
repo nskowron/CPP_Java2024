@@ -16,13 +16,5 @@ public class PascalApp extends Application
     public void start(Stage stage)
     {   
         new PascalAppGUI(stage);
-
-        // ColorChanger cc = new ColorChanger(stage.getScene().getRoot());
-        // stage.setOnCloseRequest(e -> 
-        // {
-        //     cc.terminate();
-        // });
-
-        // cc.start();
     }
 }

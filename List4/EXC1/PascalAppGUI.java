@@ -37,6 +37,6 @@ public class PascalAppGUI
         stage.setHeight(500);
         stage.setTitle("Pascal's Triangle");
         stage.show();
-        AppLogger.logger.log(Level.INFO, "Scene has been inited");
+        AppLogger.logger.log(Level.INFO, "Scene has been initiated");
     }
 }

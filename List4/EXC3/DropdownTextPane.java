@@ -8,28 +8,30 @@ import javafx.scene.layout.ColumnConstraints;
 import java.util.logging.Level;
 
 
-public class DropdownPane extends BorderPane
+public class DropdownTextPane extends BorderPane
 {
-    public DropdownPane(ComboBox<Integer> box, Button button)
+    public DropdownTextPane(ComboBox<Integer> box, TextArea textArea, Button button)
     {
         GridPane grid = new GridPane();
 
         grid.add(box, 0, 0);
-        grid.add(button, 1, 0);
-        grid.setHgap(10);
-        grid.setVgap(10);
+        grid.add(textArea, 1, 0);
+        grid.add(button, 2, 0);
 
         ColumnConstraints boxColumn = new ColumnConstraints();
-        boxColumn.setHgrow(Priority.ALWAYS); 
+        boxColumn.setHgrow(box.getWidth());
+
+        ColumnConstraints textColumn = new ColumnConstraints();
+        textColumn.setHgrow(Priority.ALWAYS);
 
         ColumnConstraints buttonColumn = new ColumnConstraints();
         buttonColumn.setHgrow(Priority.NEVER);
         buttonColumn.setMinWidth(button.getWidth());
 
-        grid.getColumnConstraints().addAll(boxColumn, buttonColumn);
+        grid.getColumnConstraints().addAll(boxColumn, textColumn, buttonColumn);
 
         this.setCenter(grid);
 
-        AppLogger.logger.log(Level.INFO, "DropdownPane has been initiated");
+        AppLogger.logger.log(Level.INFO, "DropdownTextPane has been initiated");
     }
 }

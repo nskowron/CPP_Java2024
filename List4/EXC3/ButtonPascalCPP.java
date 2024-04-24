@@ -6,9 +6,9 @@ import javafx.event.ActionEvent;
 import java.util.logging.Level;
 
 
-public class ButtonPascal extends Button
+public class ButtonPascalCPP extends Button
 {
-    public ButtonPascal(String name, Sheet sheet, ComboBox<Integer> box)
+    public ButtonPascalCPP(String name, ComboBox<Integer> box, TextArea textArea, Label label)
     {
         super(name);
 
@@ -24,21 +24,21 @@ public class ButtonPascal extends Button
                     ErrorHandler.showError("Wrong value", "Please choose a value");
                     return;
                 }
-                else if (box.getValue() > 5)
+
+                Integer n = box.getValue();
+                ProcessBuilder processBuilder = new ProcessBuilder("../PascalCPP/main.exe", n.toString(), textArea.getText());
+                Process process = processBuilder.start();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                StringBuilder output = new StringBuilder();
+
+                String line;
+                while ((line = reader.readLine()) != null)
                 {
-                    ErrorHandler.showError("Note", "THIS WILL TAKE SOME TIME -> CPP APP READING IS SEVERELY UNOPTIMIZED");
+                    output.append(line).append("\n");
                 }
 
-                int n = box.getValue();
-                PascalsTriangle triangle = new PascalsTriangle(n);
-                sheet.Clear();
-                for(int y = 0; y <= n; ++y)
-                {
-                    for(int x = 0; x <= y; ++x)
-                    {
-                        sheet.Get(y, n - y + 2*x).setText(triangle.GetTriangle().get(y).get(x).toString());
-                    }
-                }
+                label.setText(output);
 
                 AppLogger.logger.log(Level.INFO, "Triangle generated");
             }

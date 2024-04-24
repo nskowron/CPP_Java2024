@@ -27,19 +27,6 @@ public class Sheet extends GridPane
 
     public Label Get(int x, int y) throws IndexOutOfBoundsException
     {
-        if(x < 0 || y < 0)
-        {
-            throw new IndexOutOfBoundsException("Index cannot be negative, got: " + x + ", " + y);
-        }
-        if(x >= getColumnCount())
-        {
-            throw new IndexOutOfBoundsException("Index out of range, x: " + x + " >= " + getColumnCount());
-        }
-        if(x >= getRowCount())
-        {
-            throw new IndexOutOfBoundsException("Index out of range, y: " + y + " >= " + getRowCount());
-        }
-
         return (Label) getChildren().get(y * getColumnCount() + x);
     }
 
