@@ -9,13 +9,16 @@ import javafx.scene.layout.Priority;
 
 public class PascalAppGUI
 {
-    public PascalAppGUI(Stage stage)
+    public PascalAppGUI(Stage stage, int limit)
     {
         ComboBox<Integer> box = new ComboBox<Integer>();
-        box.getItems().addAll(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33);
+        for(int i = 0; i <= limit; ++i)
+        {
+            box.getItems().add(i);
+        }
         box.setPromptText("Choose number of row");
 
-        Sheet sheet = new Sheet(68, 68);
+        Sheet sheet = new Sheet(2 * (limit + 1), (limit + 1));
 
         Button button = new ButtonPascal("Render", sheet, box);
 

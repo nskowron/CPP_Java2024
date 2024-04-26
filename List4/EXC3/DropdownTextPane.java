@@ -1,6 +1,7 @@
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.ColumnConstraints;
@@ -10,7 +11,7 @@ import java.util.logging.Level;
 
 public class DropdownTextPane extends BorderPane
 {
-    public DropdownTextPane(ComboBox<Integer> box, TextArea textArea, Button button)
+    public DropdownTextPane(ComboBox<Integer> box, TextField textArea, Button button)
     {
         GridPane grid = new GridPane();
 
@@ -19,7 +20,7 @@ public class DropdownTextPane extends BorderPane
         grid.add(button, 2, 0);
 
         ColumnConstraints boxColumn = new ColumnConstraints();
-        boxColumn.setHgrow(box.getWidth());
+        boxColumn.setMinWidth(box.getWidth());
 
         ColumnConstraints textColumn = new ColumnConstraints();
         textColumn.setHgrow(Priority.ALWAYS);

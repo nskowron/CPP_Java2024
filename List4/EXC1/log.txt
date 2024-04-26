@@ -1,0 +1,10 @@
+Apr 26, 2024 5:49:03 PM Sheet <init>
+INFO: Sheet 68x34 has been initiated
+Apr 26, 2024 5:49:03 PM DropdownPane <init>
+INFO: DropdownPane has been initiated
+Apr 26, 2024 5:49:04 PM PascalAppGUI <init>
+INFO: Scene has been initiated
+Apr 26, 2024 5:49:11 PM ButtonPascal$1 handle
+INFO: Button clicked
+Apr 26, 2024 5:49:11 PM ButtonPascal$1 handle
+INFO: Triangle generated

@@ -16,8 +16,6 @@ public class DropdownPane extends BorderPane
 
         grid.add(box, 0, 0);
         grid.add(button, 1, 0);
-        grid.setHgap(10);
-        grid.setVgap(10);
 
         ColumnConstraints boxColumn = new ColumnConstraints();
         boxColumn.setHgrow(Priority.ALWAYS); 

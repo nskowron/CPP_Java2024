@@ -6,23 +6,29 @@ import javafx.scene.control.ScrollPane;
 import java.util.logging.Level;
 import javafx.scene.Scene;
 import javafx.scene.layout.Priority;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
 public class PascalAppGUI
 {
-    public PascalAppGUI(Stage stage)
+    public PascalAppGUI(Stage stage, int limit)
     {
         ComboBox<Integer> box = new ComboBox<Integer>();
-        box.getItems().addAll(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33);
+        for(int i = 0; i <= limit; ++i)
+        {
+            box.getItems().add(i);
+        }
         box.setPromptText("Choose number of row");
 
-        TextArea textArea = new TextArea();
-        textArea.setPromptText("Choose elements");
+        TextField textField = new TextField();
+        textField.setPromptText("Choose elements");
 
         Label label = new Label();
 
-        Button button = new ButtonPascalCPP("Render", box, textArea, label);
+        Button button = new ButtonPascalCPP("Run", box, textField, label, "./PascalCPP/main");
 
-        DropdownPane dropdown = new DropdownTextPane(box, textArea, button);
+        BorderPane dropdown = new DropdownTextPane(box, textField, button);
 
         ScrollPane scroll = new ScrollPane(label);
 
@@ -34,12 +40,12 @@ public class PascalAppGUI
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setMinWidth(600);
-        stage.setMinHeight(500);
-        stage.setWidth(600);
-        stage.setHeight(500);
+        stage.setMinWidth(400);
+        stage.setMinHeight(300);
+        stage.setWidth(400);
+        stage.setHeight(300);
         stage.setTitle("Pascal's Triangle's Row");
         stage.show();
-        AppLogger.logger.log(Level.INFO, "Scene has been inited");
+        AppLogger.logger.log(Level.INFO, "Scene has been initiated");
     }
 }

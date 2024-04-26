@@ -32,7 +32,7 @@ public class ButtonPascal extends Button
                 {
                     for(int x = 0; x <= y; ++x)
                     {
-                        sheet.Get(y, n - y + 2*x).setText(triangle.GetTriangle().get(y).get(x).toString());
+                        sheet.Get(n - y + 2*x, y).setText(triangle.GetTriangle().get(y).get(x).toString());
                     }
                 }
 
