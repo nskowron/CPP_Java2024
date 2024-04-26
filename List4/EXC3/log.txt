@@ -1,6 +1,0 @@
-Apr 26, 2024 4:56:19 PM DropdownTextPane <init>
-INFO: DropdownTextPane has been initiated
-Apr 26, 2024 4:56:19 PM PascalAppGUI <init>
-INFO: Scene has been initiated
-Apr 26, 2024 4:56:27 PM ButtonPascalCPP$1 handle
-INFO: Button clicked

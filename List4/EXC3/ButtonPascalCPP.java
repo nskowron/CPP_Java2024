@@ -24,6 +24,8 @@ public class ButtonPascalCPP extends Button
             @Override
             public void handle(ActionEvent ae)
             {
+                label.setText("");
+                
                 AppLogger.logger.log(Level.INFO, "Button clicked");
 
                 if(box.getValue() == null)
@@ -33,33 +35,42 @@ public class ButtonPascalCPP extends Button
                 }
 
                 final Integer n = box.getValue();
-                final String[] args = textArea.getText().split(" ");
+                final String[] arguments = textArea.getText().split(" ");
 
                 List<String> command = new ArrayList<String>();
-                command.addAll(Arrays.asList(args));
+                command.addAll(Arrays.asList(arguments));
                 command.addFirst(n.toString());
                 command.addFirst(path);
 
+                BufferedReader reader = null;
                 try
                 {
-                    ProcessBuilder processBuilder = new ProcessBuilder(command);
-                    Process process = processBuilder.start();
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String output = "";
+                    reader = new BufferedReader(new InputStreamReader(((new ProcessBuilder(command)).start()).getInputStream()));
 
                     String line;
+
                     while ((line = reader.readLine()) != null)
                     {
-                        output += line + "\n";
+                        label.setText(label.getText() + line + "\n");
                     }
 
-                    label.setText(output);
                 }
                 catch(IOException e)
                 {
                     AppLogger.logger.log(Level.SEVERE, "Error while accessing " + path, e);
                     ErrorHandler.showError("Process error", e.getMessage());
+                }
+                finally
+                {
+                    try
+                    {
+                        reader.close();
+                    }
+                    catch(IOException e)
+                    {
+                        AppLogger.logger.log(Level.SEVERE, "Error while closing " + path, e);
+                        ErrorHandler.showError("Process error", e.getMessage());
+                    }
                 }
             }
         });
