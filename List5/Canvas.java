@@ -2,7 +2,6 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Canvas extends Pane
 {
@@ -36,10 +35,10 @@ public class Canvas extends Pane
         shapes.remove(shape);
     }
 
-    public List<DrawingShape> GetDrawingShapes()
-    {
-        return Collections.unmodifiableList(shapes);
-    }
+    // public List<DrawingShape> GetDrawingShapes()
+    // {
+    //     return Collections.unmodifiableList(shapes);
+    // }
 
     public void Select(DrawingShape shape)
     {

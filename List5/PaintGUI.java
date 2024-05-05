@@ -10,8 +10,14 @@ public class PaintGUI
         VBox root = new VBox();
         
         Canvas canvas = new Canvas();
-        DrawingShapeButton button = new DrawingShapeButton(new DrawingEllipse(0, 0, 100), canvas, null);
-        Pane pane = new Pane(button);
+        DrawingShapeButton ellipse = new DrawingShapeButton("icons/ellipse.png", new DrawingEllipse(0, 0, 100), canvas, null);
+        DrawingShapeButton rectangle = new DrawingShapeButton("icons/rectangle.png", new DrawingRectangle(0, 0, 100), canvas, null);
+        DrawingShapeButton triangle = new DrawingShapeButton("icons/triangle.png", new DrawingTriangle(0, 0, 100), canvas, null);
+        GridPane pane = new GridPane();
+        pane.add(ellipse, 0, 0);
+        pane.add(rectangle, 1, 0);
+        pane.add(triangle, 2, 0);
+
         root.getChildren().add(pane);
         root.getChildren().add(canvas);
 

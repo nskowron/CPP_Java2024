@@ -15,9 +15,9 @@ public class DrawingShapeButton extends OptionButton
 
     private DrawingShape shapeDrawn;
 
-    public DrawingShapeButton(DrawingShape shape, Canvas canvas, Node selectedColor)
+    public DrawingShapeButton(String pathToIcon, DrawingShape shape, Canvas canvas, Node selectedColor)
     {
-        super();
+        super(pathToIcon);
 
         onMouseDragged = new ResizeEventHandler()
         {
@@ -29,13 +29,6 @@ public class DrawingShapeButton extends OptionButton
             {
                 if(me.isPrimaryButtonDown())
                 {
-                    //drawnshape
-                    // DrawingShape shape = canvas.GetDrawingShapes().getLast();
-                    // Scale scale = (Scale)shape.GetShape().getTransforms().getLast();
-
-                    // scale.setX(2 * (me.getX() - shape.GetX()) / originalWidth);
-                    // scale.setY(2 * (me.getY() - shape.GetY()) / originalHeight);
-
                     Scale scale = (Scale)shapeDrawn.GetShape().getTransforms().getLast();
 
                     scale.setX(2 * (me.getX() - shapeDrawn.GetX()) / originalWidth);
@@ -82,7 +75,7 @@ public class DrawingShapeButton extends OptionButton
             public void handle(MouseEvent me)
             {
                 //drawnshape
-                canvas.Select(canvas.GetDrawingShapes().getLast());
+                canvas.Select(shapeDrawn);
 
                 PaintLogger.logger.log(Level.INFO, "New shape drawn");
             }
