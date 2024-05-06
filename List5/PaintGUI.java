@@ -9,16 +9,19 @@ public class PaintGUI
     {
         VBox root = new VBox();
         
+        OptionPalette optionPalette = new OptionPalette();
         Canvas canvas = new Canvas();
-        DrawingShapeButton ellipse = new DrawingShapeButton("icons/ellipse.png", new DrawingEllipse(0, 0, 100), canvas, null);
-        DrawingShapeButton rectangle = new DrawingShapeButton("icons/rectangle.png", new DrawingRectangle(0, 0, 100), canvas, null);
-        DrawingShapeButton triangle = new DrawingShapeButton("icons/triangle.png", new DrawingTriangle(0, 0, 100), canvas, null);
-        GridPane pane = new GridPane();
-        pane.add(ellipse, 0, 0);
-        pane.add(rectangle, 1, 0);
-        pane.add(triangle, 2, 0);
 
-        root.getChildren().add(pane);
+        DrawingShapeButton ellipse = new DrawingShapeButton("icons/ellipse.png", optionPalette, new DrawingEllipse(0, 0, 100), canvas, null);
+        DrawingShapeButton rectangle = new DrawingShapeButton("icons/rectangle.png", optionPalette, new DrawingRectangle(0, 0, 100), canvas, null);
+        DrawingShapeButton triangle = new DrawingShapeButton("icons/triangle.png", optionPalette, new DrawingTriangle(0, 0, 100), canvas, null);
+        
+        SelectButton select = new SelectButton("icons/select.png", optionPalette, canvas);
+
+        OptionButton[] optionButtons = {select, ellipse, rectangle, triangle};
+        optionPalette.AddAll(optionButtons);
+
+        root.getChildren().add(optionPalette);
         root.getChildren().add(canvas);
 
         VBox.setVgrow(canvas, Priority.ALWAYS);

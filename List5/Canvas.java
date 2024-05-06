@@ -1,7 +1,10 @@
 import javafx.scene.layout.Pane;
 
+import java.util.logging.Level;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Canvas extends Pane
 {
@@ -15,7 +18,8 @@ public class Canvas extends Pane
         //FOR NOW
         shapes = new ArrayList<DrawingShape>(0);
 
-        setMinHeight(300);
+        this.setMinHeight(300);
+        this.setMinWidth(400);
     }
 
     public void Add(DrawingShape shape)
@@ -35,10 +39,10 @@ public class Canvas extends Pane
         shapes.remove(shape);
     }
 
-    // public List<DrawingShape> GetDrawingShapes()
-    // {
-    //     return Collections.unmodifiableList(shapes);
-    // }
+    public List<DrawingShape> GetDrawingShapes()
+    {
+        return Collections.unmodifiableList(shapes);
+    }
 
     public void Select(DrawingShape shape)
     {
@@ -46,11 +50,15 @@ public class Canvas extends Pane
 
         selectedShape = shape;
         //do stuff
+
+        PaintLogger.logger.log(Level.INFO, "Shape selected");
     }
 
     public void Unselect()
     {
         //do stuff
         selectedShape = null;
+
+        PaintLogger.logger.log(Level.INFO, "Shape unselected");
     }
 }

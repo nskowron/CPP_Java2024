@@ -14,10 +14,13 @@ public class DrawingShapeButton extends OptionButton
     private EventHandler<MouseEvent> onMouseReleased;
 
     private DrawingShape shapeDrawn;
+    private Canvas canvas;
 
-    public DrawingShapeButton(String pathToIcon, DrawingShape shape, Canvas canvas, Node selectedColor)
+    public DrawingShapeButton(String pathToIcon, OptionPalette optionPalette, DrawingShape shape, Canvas canvas, Node selectedColor)
     {
-        super(pathToIcon);
+        super(pathToIcon, optionPalette);
+
+        this.canvas = canvas;
 
         onMouseDragged = new ResizeEventHandler()
         {
@@ -58,7 +61,6 @@ public class DrawingShapeButton extends OptionButton
                 onMouseDragged.SetOriginalWidth(copy.GetWidth());
                 onMouseDragged.SetOriginalHeight(copy.GetHeight());
 
-                //
                 shapeDrawn = copy;
 
                 copy.GetShape().getTransforms().add(new Translate(me.getX(), me.getY()));
@@ -81,15 +83,25 @@ public class DrawingShapeButton extends OptionButton
             }
         };
 
-        setOnAction(new EventHandler<ActionEvent>()
+        setOnAction(new OptionButton.ActionEventHandler()
         {
             @Override
             public void handle(ActionEvent ae)
             {
+                super.handle(ae);
+
                 canvas.setOnMousePressed(onMousePressed);
                 canvas.setOnMouseDragged(onMouseDragged);
                 canvas.setOnMouseReleased(onMouseReleased);
             }
         });
+    }
+
+    @Override
+    public void EndAction()
+    {
+        canvas.setOnMousePressed(null);
+        canvas.setOnMouseDragged(null);
+        canvas.setOnMouseReleased(null);
     }
 }

@@ -18,8 +18,6 @@ public abstract class DrawingShape implements IDrawingShape
     //shadow
     //rotator
 
-    public abstract DrawingShape Clone();
-
     public double GetX()
     {
         return GetShape().getBoundsInParent().getCenterX();
@@ -39,4 +37,13 @@ public abstract class DrawingShape implements IDrawingShape
     {
         return GetShape().getBoundsInParent().getHeight();
     }
+
+    public void Select()
+    {
+        //create a shadow
+        //create a rotator
+    }
+    //public abstract void Unselect();
+
+    public abstract DrawingShape Clone();
 }

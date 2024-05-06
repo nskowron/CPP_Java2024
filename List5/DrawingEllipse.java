@@ -30,12 +30,6 @@ public class DrawingEllipse extends DrawingShape
         return this.ellipse;
     }
 
-    public void Select()
-    {
-        //create a shadow
-        //create a rotator
-    }
-
     public DrawingShape Clone()
     {
         DrawingShape copy = new DrawingEllipse(x, y, parameter);

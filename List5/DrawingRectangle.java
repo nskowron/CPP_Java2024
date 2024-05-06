@@ -33,12 +33,6 @@ public class DrawingRectangle extends DrawingShape
         return this.rectangle;
     }
 
-    public void Select()
-    {
-        //create a shadow
-        //create a rotator
-    }
-
     public DrawingShape Clone()
     {
         DrawingShape copy = new DrawingRectangle(x, y, parameter);

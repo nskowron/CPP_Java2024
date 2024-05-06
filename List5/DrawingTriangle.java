@@ -28,18 +28,12 @@ public class DrawingTriangle extends DrawingShape
                             
         this.triangle = new Polygon(indices);
 
-        PaintLogger.logger.log(Level.INFO, "Rectangle created");
+        PaintLogger.logger.log(Level.INFO, "Triangle created");
     }
 
     public Shape GetShape()
     {
         return this.triangle;
-    }
-
-    public void Select()
-    {
-        //create a shadow
-        //create a rotator
     }
 
     public DrawingShape Clone()
