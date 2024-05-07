@@ -1,8 +1,20 @@
+import java.util.Map;
+import java.util.HashMap;
+
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Shape;
 
-public abstract class DrawingShape implements IDrawingShape
+import java.util.logging.Level;
+
+public abstract class DrawingShape extends Shape
 {
-    public DrawingShape(double x, double y, double parameter) throws IllegalArgumentException
+    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers;
+
+    protected Shape shape;
+
+    public DrawingShape(double x, double y, double parameter, Canvas canvas) throws IllegalArgumentException
     {
         if(x < 0 || y < 0)
         {
@@ -12,6 +24,8 @@ public abstract class DrawingShape implements IDrawingShape
         {
             throw new IllegalArgumentException("Measurements cannot be negative, got: " + parameter);
         }
+
+        InputHandler.SetDrawingShapeInputs(this, canvas);
     }
 
     public abstract Shape GetShape();
