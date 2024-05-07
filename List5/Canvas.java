@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
 
+//use set input hanlers like shape?
 public class Canvas extends Pane
 {
     public enum Mode
@@ -41,43 +42,11 @@ public class Canvas extends Pane
         this.setMinHeight(300);
         this.setMinWidth(400);
 
-        InputHandler.SetCanvasInputs(this);
-
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent me)
-            {
-                if(inputHandlers.get(me.getEventType()) != null)
-                {
-                    if(inputHandlers.get(me.getEventType()).get(mode) != null)
-                    {
-                        inputHandlers.get(me.getEventType()).get(mode).handle(me);
-                    }
-                }
-            }
-        };
-
+        inputHandlers = InputHandler.GetCanvasInputs(this);
+        EventHandler<MouseEvent> eventHandler = InputHandler.GetDefaultInputHandler(this.inputHandlers, this);
         this.setOnMousePressed(eventHandler);
         this.setOnMouseDragged(eventHandler);
         this.setOnMouseReleased(eventHandler);
-    }
-
-    public void Add(DrawingShape shape)
-    {
-        shapes.add(shape);
-        this.getChildren().add(shape.GetShape());
-    }
-
-    public void Delete(DrawingShape shape)
-    {
-        if(selectedShape == shape)
-        {
-            this.Unselect();
-        }
-
-        this.getChildren().remove(shape.GetShape());
-        shapes.remove(shape);
     }
 
     public List<DrawingShape> GetDrawingShapes()

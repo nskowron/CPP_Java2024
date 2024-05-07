@@ -1,10 +1,10 @@
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.transform.Scale;
-import javafx.scene.transform.Translate;
 
 public class InputHandler
 {
@@ -13,55 +13,47 @@ public class InputHandler
         throw new InstantiationError("Cannot create instance of static class InputHandler");
     }
 
-    private static double scaleOriginalWidth;
-    private static double scaleOriginalHeight;
-
-    private static double translateOriginalX;
-    private static double translateOriginalY;
-
-    public static void SetCanvasInputs(Canvas canvas)
+    public static Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > GetCanvasInputs(final Canvas canvas)
     {
-        canvas.inputHandlers = new HashMap<>(0);
+        Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers = new HashMap<>(0);
 
-        canvas.inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
-        canvas.inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
-        canvas.inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
+        inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
+        inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
+        inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
 
-        canvas.inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+        inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent me)
             {
                 canvas.newShape = canvas.drawingTemplate.Clone();
-                scaleOriginalWidth = canvas.newShape.GetWidth();
-                scaleOriginalHeight = canvas.newShape.GetHeight();
 
-                //add own transforms
-                canvas.newShape.GetShape().getTransforms().add(new Translate(me.getX(), me.getY()));
-                canvas.newShape.GetShape().getTransforms().add(new Scale(0, 0));
+                PaintLogger.logger.log(Level.INFO, "" + canvas.newShape.GetWidth() + ", " + canvas.newShape.GetHeight());
+
+                canvas.newShape.Translate(me.getX(), me.getY());
+                canvas.newShape.Resize(-canvas.newShape.GetWidth(), -canvas.newShape.GetHeight());
+                PaintLogger.logger.log(Level.INFO, "" + canvas.newShape.GetWidth() + ", " + canvas.newShape.GetHeight());
                 //setfill
 
-                canvas.Add(canvas.newShape);
+                canvas.getChildren().add(canvas.newShape);
+
+                PaintLogger.logger.log(Level.INFO, "Canvas clicked");
             }
         });
 
-        canvas.inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+        inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent me)
             {
                 if(me.isPrimaryButtonDown())
                 {
-                    //seriously, add own transforms
-                    Scale scale = (Scale)canvas.newShape.GetShape().getTransforms().getLast();
-
-                    scale.setX(2 * (me.getX() - canvas.newShape.GetX()) / scaleOriginalWidth);
-                    scale.setY(2 * (me.getY() - canvas.newShape.GetY()) / scaleOriginalHeight);
+                    canvas.newShape.Resize(me.getX() - canvas.newShape.GetX() - canvas.newShape.GetWidth(), me.getY() - canvas.newShape.GetY() - canvas.newShape.GetHeight());
                 }
             }
         });
 
-        canvas.inputHandlers.get(MouseEvent.MOUSE_RELEASED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+        inputHandlers.get(MouseEvent.MOUSE_RELEASED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent me)
@@ -71,43 +63,57 @@ public class InputHandler
                 PaintLogger.logger.log(Level.INFO, "New shape drawn");
             }
         });
+
+        return inputHandlers;
     }
 
-    public static void SetDrawingShapeInputs(DrawingShape shape, Canvas canvas)
+    public static Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > GetDrawingShapeInputs(final DrawingShape dShape, final Canvas canvas)
     {
-        shape.inputHandlers = new HashMap<>(0);
+        Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers = new HashMap<>(0);
 
-        shape.inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
-        shape.inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
-        shape.inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
+        inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
+        inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
+        inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
 
-        shape.inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
+        inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent me)
             {
-                translateOriginalX = shape.GetX();
-                translateOriginalY = shape.GetY();
-
-                //for the love of god add own transforms
-                shape.GetShape().getTransforms().addFirst(new Translate(0, 0));
-
-                canvas.Select(shape);
+                canvas.Select(dShape);
             }
         });
 
-        shape.inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
+        inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
         {
             @Override
             public void handle(MouseEvent me)
             {
-                //i swear i'll add own transforms...
-                Translate translate = (Translate)shape.GetShape().getTransforms().getFirst();
-                translate.setX(me.getX() - translateOriginalX);
-                translate.setY(me.getY() - translateOriginalY);
-
-                PaintLogger.logger.log(Level.INFO, "Translate added");
+                //fix - some values are relative to shape and some to canvas
+                PaintLogger.logger.log(Level.INFO, "" + me.getX() + " " + dShape.GetX());
+                dShape.Translate(me.getX(), me.getY());
             }
         });
+
+        return inputHandlers;
+    }
+
+    //could use some sort of nametype for this map...
+    public static EventHandler<MouseEvent> GetDefaultInputHandler(Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers, Canvas canvas)
+    {
+        return new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent me)
+            {
+                if(inputHandlers.get(me.getEventType()) != null)
+                {
+                    if(inputHandlers.get(me.getEventType()).get(canvas.mode) != null)
+                    {
+                        inputHandlers.get(me.getEventType()).get(canvas.mode).handle(me);
+                    }
+                }
+            }
+        };
     }
 }

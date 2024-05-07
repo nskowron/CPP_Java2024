@@ -1,63 +1,94 @@
 import java.util.Map;
-import java.util.HashMap;
 
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.*;
 
 import java.util.logging.Level;
 
-public abstract class DrawingShape extends Shape
+public abstract class DrawingShape extends Group
 {
-    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers;
-
     protected Shape shape;
+    //private Shape shadow;
+    //private Rotator rotator;
 
-    public DrawingShape(double x, double y, double parameter, Canvas canvas) throws IllegalArgumentException
+    //for now?
+    protected Canvas canvas;
+
+    protected Translate translate;
+    protected Rotate rotate;
+    protected Scale scale;
+
+    //private double originalWidth
+    //private double originalHeight
+
+    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > shapeInputHandlers;
+
+    public DrawingShape(Shape shape, final Canvas canvas)
     {
-        if(x < 0 || y < 0)
-        {
-            throw new IllegalArgumentException("Coordinates cannot be negative, got: " + x + ", " + y);
-        }
-        if(parameter < 0)
-        {
-            throw new IllegalArgumentException("Measurements cannot be negative, got: " + parameter);
-        }
+        this.shape = shape;
 
-        InputHandler.SetDrawingShapeInputs(this, canvas);
+        //probably should set them somewhere else to
+        //not make DrawingShape dependent on a canvas
+        this.canvas = canvas;
+        //will help with cloning
+        shapeInputHandlers = InputHandler.GetDrawingShapeInputs(this, canvas);
+        EventHandler<MouseEvent> eventHandler = InputHandler.GetDefaultInputHandler(this.shapeInputHandlers, canvas);
+        shape.setOnMousePressed(eventHandler);
+        shape.setOnMouseDragged(eventHandler);
+        shape.setOnMouseReleased(eventHandler);
+
+        translate = new Translate(0, 0);
+        rotate = new Rotate(0);
+        scale = new Scale(1, 1);
+        
+        this.getTransforms().addAll(translate, rotate);
+        shape.getTransforms().add(scale);
+
+        this.getChildren().add(shape);
     }
-
-    public abstract Shape GetShape();
-    //shadow
-    //rotator
 
     public double GetX()
     {
-        return GetShape().getBoundsInParent().getCenterX();
+        return translate.getX();
     }
 
     public double GetY()
     {
-        return GetShape().getBoundsInParent().getCenterY();
+        return translate.getY();
     }
 
     public double GetWidth()
     {
-        return GetShape().getBoundsInParent().getWidth();
+        return shape.getBoundsInParent().getWidth();
     }
 
     public double GetHeight()
     {
-        return GetShape().getBoundsInParent().getHeight();
+        return shape.getBoundsInParent().getHeight();
     }
-
-    public void Select()
-    {
-        //create a shadow
-        //create a rotator
-    }
-    //public abstract void Unselect();
 
     public abstract DrawingShape Clone();
+
+    public void Translate(double x, double y)
+    {
+        translate.setX(translate.getX() + x);
+        translate.setY(translate.getY() + y);
+    }
+
+    public void Resize(double x, double y)
+    {
+        scale.setX(2 * ((GetWidth() + x) / shape.getBoundsInLocal().getWidth()));
+        scale.setY(2 * ((GetHeight() + y) / shape.getBoundsInLocal().getHeight()));
+    }
+
+    public void Rotate(double angle)
+    {
+
+    }
+
+    //public void SetInputHandlers(map, canvas)
 }

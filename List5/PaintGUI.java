@@ -12,13 +12,14 @@ public class PaintGUI
         OptionPalette optionPalette = new OptionPalette();
         Canvas canvas = new Canvas();
 
-        DrawingShapeButton ellipse = new DrawingShapeButton("icons/ellipse.png", new DrawingEllipse(0, 0, 100, canvas), canvas, null);
-        DrawingShapeButton rectangle = new DrawingShapeButton("icons/rectangle.png", new DrawingRectangle(0, 0, 100, canvas), canvas, null);
-        DrawingShapeButton triangle = new DrawingShapeButton("icons/triangle.png", new DrawingTriangle(0, 0, 100, canvas), canvas, null);
+        //yeah... this canvas as argument makes no sense
+        DrawingShapeButton ellipse = new DrawingShapeButton("icons/ellipse.png", new DrawingCircle(100, canvas), canvas, null);
+        //DrawingShapeButton rectangle = new DrawingShapeButton("icons/rectangle.png", new DrawingRectangle(0, 0, 100, canvas), canvas, null);
+        //DrawingShapeButton triangle = new DrawingShapeButton("icons/triangle.png", new DrawingTriangle(0, 0, 100, canvas), canvas, null);
         
         SelectButton select = new SelectButton("icons/select.png", canvas);
 
-        OptionButton[] optionButtons = {select, ellipse, rectangle, triangle};
+        OptionButton[] optionButtons = {select, ellipse}; //, rectangle, triangle};
         optionPalette.AddAll(optionButtons);
 
         root.getChildren().add(optionPalette);

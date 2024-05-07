@@ -1,10 +1,6 @@
 import javafx.scene.control.Button;
 import javafx.scene.image.*;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
 
-//add indication that a utton is pressed
 public abstract class OptionButton extends Button
 {
     public OptionButton(String pathToIcon)
@@ -28,18 +24,4 @@ public abstract class OptionButton extends Button
         setHeight(y);
         setWidth(x);
     }
-
-    // public abstract void EndAction();
-
-    // protected abstract class ActionEventHandler implements EventHandler<ActionEvent>
-    // {
-    //     @Override
-    //     public void handle(ActionEvent me)
-    //     {
-    //         for(Node node : optionPalette.getChildren())
-    //         {
-    //             ((OptionButton)node).EndAction();
-    //         }
-    //     }
-    // }
 }
