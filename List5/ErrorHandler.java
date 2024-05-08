@@ -5,7 +5,7 @@ public class ErrorHandler
 {
     private ErrorHandler()
     {
-        throw new InstantiationError("ErrorHandler is static class");
+        throw new InstantiationError("Cannot create instance of static class ErrorHandler");
     }
 
     public static void showError(String title, String message) 

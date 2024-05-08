@@ -7,39 +7,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.*;
 
-import java.util.logging.Level;
-
 public abstract class DrawingShape extends Group
 {
-    protected Shape shape;
+    protected final Shape shape;
     //private Shape shadow;
     //private Rotator rotator;
 
-    //for now?
-    protected Canvas canvas;
+    protected final double originalWidth;
+    protected final double originalHeight;
 
-    protected Translate translate;
-    protected Rotate rotate;
-    protected Scale scale;
-
-    //private double originalWidth
-    //private double originalHeight
+    private final Translate translate;
+    private final Rotate rotate;
+    private final Scale scale;
 
     public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > shapeInputHandlers;
 
-    public DrawingShape(Shape shape, final Canvas canvas)
+    public DrawingShape(Shape shape)
     {
         this.shape = shape;
 
-        //probably should set them somewhere else to
-        //not make DrawingShape dependent on a canvas
-        this.canvas = canvas;
-        //will help with cloning
-        shapeInputHandlers = InputHandler.GetDrawingShapeInputs(this, canvas);
-        EventHandler<MouseEvent> eventHandler = InputHandler.GetDefaultInputHandler(this.shapeInputHandlers, canvas);
-        shape.setOnMousePressed(eventHandler);
-        shape.setOnMouseDragged(eventHandler);
-        shape.setOnMouseReleased(eventHandler);
+        originalWidth = shape.getBoundsInParent().getWidth();
+        originalHeight = shape.getBoundsInParent().getHeight();
 
         translate = new Translate(0, 0);
         rotate = new Rotate(0);
@@ -63,32 +51,43 @@ public abstract class DrawingShape extends Group
 
     public double GetWidth()
     {
-        return shape.getBoundsInParent().getWidth();
+        return scale.getX() * originalWidth;
     }
 
     public double GetHeight()
     {
-        return shape.getBoundsInParent().getHeight();
+        return scale.getY() * originalHeight;
+    }
+
+    public double GetAngle()
+    {
+        return rotate.getAngle();
     }
 
     public abstract DrawingShape Clone();
 
-    public void Translate(double x, double y)
+    public void Translate(double new_x, double new_y)
     {
-        translate.setX(translate.getX() + x);
-        translate.setY(translate.getY() + y);
+        translate.setX(new_x);
+        translate.setY(new_y);
     }
 
-    public void Resize(double x, double y)
+    public void Resize(double new_width, double new_height)
     {
-        scale.setX(2 * ((GetWidth() + x) / shape.getBoundsInLocal().getWidth()));
-        scale.setY(2 * ((GetHeight() + y) / shape.getBoundsInLocal().getHeight()));
+        scale.setX(new_width / originalWidth);
+        scale.setY(new_height / originalHeight);
     }
 
-    public void Rotate(double angle)
+    public void Rotate(double new_angle)
     {
-
+        rotate.setAngle(new_angle);
     }
 
-    //public void SetInputHandlers(map, canvas)
+    public void SetInputHandlers(InputHandler inputHandler, Canvas canvas)
+    {
+        shapeInputHandlers = inputHandler.GetDrawingShapeInputs(this, canvas);
+        shape.setOnMousePressed(inputHandler.GetDefaultInputHandler(shapeInputHandlers, canvas));
+        shape.setOnMouseDragged(inputHandler.GetDefaultInputHandler(shapeInputHandlers, canvas));
+        shape.setOnMouseReleased(inputHandler.GetDefaultInputHandler(shapeInputHandlers, canvas));
+    }
 }

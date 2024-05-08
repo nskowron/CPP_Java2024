@@ -1,5 +1,3 @@
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
@@ -17,16 +15,16 @@ public class Canvas extends Pane
 {
     public enum Mode
     {
-        DRAW, SELECT;
+        DRAW, SELECT, ROTATE;
     }
-
-    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers;
 
     public Mode mode;
     public DrawingShape drawingTemplate;
 
     public DrawingShape selectedShape;
     public DrawingShape newShape;
+
+    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers;
 
     //we can bind children to it
     private List<DrawingShape> shapes;
@@ -41,12 +39,6 @@ public class Canvas extends Pane
 
         this.setMinHeight(300);
         this.setMinWidth(400);
-
-        inputHandlers = InputHandler.GetCanvasInputs(this);
-        EventHandler<MouseEvent> eventHandler = InputHandler.GetDefaultInputHandler(this.inputHandlers, this);
-        this.setOnMousePressed(eventHandler);
-        this.setOnMouseDragged(eventHandler);
-        this.setOnMouseReleased(eventHandler);
     }
 
     public List<DrawingShape> GetDrawingShapes()
@@ -70,5 +62,13 @@ public class Canvas extends Pane
         selectedShape = null;
 
         PaintLogger.logger.log(Level.INFO, "Shape unselected");
+    }
+
+    public void SetInputHandlers(InputHandler inputHandler)
+    {
+        inputHandlers = inputHandler.GetCanvasInputs(this);
+        this.setOnMousePressed(inputHandler.GetDefaultInputHandler(inputHandlers, this));
+        this.setOnMouseDragged(inputHandler.GetDefaultInputHandler(inputHandlers, this));
+        this.setOnMouseReleased(inputHandler.GetDefaultInputHandler(inputHandlers, this));
     }
 }

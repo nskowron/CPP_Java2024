@@ -4,9 +4,9 @@ public class DrawingCircle extends DrawingShape
 {
     private double radius;
 
-    public DrawingCircle(double radius, Canvas canvas)
+    public DrawingCircle(double radius)
     {
-        super(new Ellipse(0, 0, radius, radius), canvas);
+        super(new Ellipse(0, 0, radius, radius));
 
         this.radius = radius;
     }
@@ -14,12 +14,11 @@ public class DrawingCircle extends DrawingShape
     @Override
     public DrawingShape Clone()
     {
-        DrawingCircle clone = new DrawingCircle(radius, canvas);
+        DrawingCircle clone = new DrawingCircle(radius);
 
-        //consider giving final values as arguments
         clone.Translate(this.GetX(), this.GetX());
-        clone.Resize(this.GetWidth() - shape.getBoundsInLocal().getWidth(), this.GetHeight() - shape.getBoundsInLocal().getHeight());
-        clone.Rotate(rotate.getAngle());
+        clone.Resize(this.GetWidth(), this.GetHeight());
+        clone.Rotate(this.GetAngle());
 
         return clone;
     }
