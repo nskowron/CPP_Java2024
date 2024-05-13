@@ -5,7 +5,7 @@ import java.util.logging.Level;
 
 public class DrawingShapeButton extends OptionButton
 {
-    public DrawingShapeButton(final String pathToIcon, final DrawingShape shape, final Canvas canvas)
+    public DrawingShapeButton(final String pathToIcon, final DrawingShape shape, Drawer drawer, Canvas canvas)
     {
         super(pathToIcon);
         
@@ -16,8 +16,8 @@ public class DrawingShapeButton extends OptionButton
             {
                 PaintLogger.logger.log(Level.INFO, "Drawing button clicked");
 
-                canvas.mode = Canvas.Mode.DRAW;
-                canvas.drawingTemplate = shape;
+                canvas.SetMode(Canvas.Mode.DRAW);
+                drawer.SetDrawingTemplate(shape);
             }
         });
     }

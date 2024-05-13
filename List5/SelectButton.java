@@ -16,7 +16,7 @@ public class SelectButton extends OptionButton
             {
                 PaintLogger.logger.log(Level.INFO, "Select button clicked");
 
-                canvas.mode = Canvas.Mode.SELECT;
+                canvas.SetMode(Canvas.Mode.SELECT);
             }
         });
     }

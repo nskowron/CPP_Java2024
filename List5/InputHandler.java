@@ -1,93 +1,189 @@
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.shape.Shape;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 
 import java.util.logging.Level;
 
 public class InputHandler
 {
-    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > GetCanvasInputs(final Canvas canvas)
+    // public void SetCanvasInputs(Canvas canvas)
+    // {
+    //     Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers = new HashMap<>(0);
+
+    //     inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
+    //     inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
+    //     inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
+
+    //     inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+    //     {
+    //         @Override
+    //         public void handle(MouseEvent me)
+    //         {
+    //             canvas.newShape = canvas.drawingTemplate.Clone();
+    //             canvas.newShape.SetInputHandlers(new InputHandler(), canvas);
+
+    //             canvas.newShape.Translate(me.getX(), me.getY());
+    //             canvas.newShape.Resize(0, 0);
+    //             canvas.newShape.Rotate(0);
+    //             //setfill
+
+    //             canvas.getChildren().add(canvas.newShape);
+
+    //             PaintLogger.logger.log(Level.INFO, "Canvas clicked");
+    //         }
+    //     });
+
+    //     inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+    //     {
+    //         @Override
+    //         public void handle(MouseEvent me)
+    //         {
+    //             if(me.isPrimaryButtonDown())
+    //             {
+    //                 canvas.newShape.Resize(2 * (me.getX() - canvas.newShape.GetX()), 2 * (me.getY() - canvas.newShape.GetY()));
+    //             }
+    //         }
+    //     });
+
+    //     inputHandlers.get(MouseEvent.MOUSE_RELEASED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+    //     {
+    //         @Override
+    //         public void handle(MouseEvent me)
+    //         {
+    //             // canvas.Select(canvas.newShape);
+
+    //             PaintLogger.logger.log(Level.INFO, "New shape drawn");
+    //         }
+    //     });
+
+    //     inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
+    //     {
+    //         @Override
+    //         public void handle(MouseEvent me)
+    //         {
+    //             if(canvas.selectedShape != null)
+    //             {
+    //                 canvas.selectedShape.Translate(me.getX(), me.getY());
+    //             }
+    //         }
+    //     });
+
+    //     return inputHandlers;
+    // }
+
+    public void SetCanvasInputHandling(Canvas canvas)
     {
-        Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers = new HashMap<>(0);
-
-        inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
-        inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
-        inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
-
-        inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+        canvas.setOnMousePressed(me ->
         {
-            @Override
-            public void handle(MouseEvent me)
+            DrawingShape currentShape = canvas.GetShapeManagers().get(canvas.GetMode()).GetCurrentShape();
+            if(currentShape == null || currentShape.GetState() == DrawingShape.State.IDLE)
             {
-                canvas.newShape = canvas.drawingTemplate.Clone();
-                canvas.newShape.SetInputHandlers(new InputHandler(), canvas);
-
-                canvas.newShape.Translate(me.getX(), me.getY());
-                canvas.newShape.Resize(0, 0);
-                canvas.newShape.Rotate(0);
-                //setfill
-
-                canvas.getChildren().add(canvas.newShape);
-
-                PaintLogger.logger.log(Level.INFO, "Canvas clicked");
+                canvas.GetShapeManagers().get(canvas.GetMode()).ManageNew(me);
             }
         });
 
-        inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
+        canvas.setOnMouseReleased(me ->
         {
-            @Override
-            public void handle(MouseEvent me)
+            PaintLogger.logger.log(Level.INFO, "Released");
+
+            DrawingShape currentShape = canvas.GetShapeManagers().get(canvas.GetMode()).GetCurrentShape();
+
+            if(currentShape != null)
             {
-                if(me.isPrimaryButtonDown())
-                {
-                    canvas.newShape.Resize(2 * (me.getX() - canvas.newShape.GetX()), 2 * (me.getY() - canvas.newShape.GetY()));
-                }
+                currentShape.SetState(DrawingShape.State.IDLE);
             }
         });
 
-        inputHandlers.get(MouseEvent.MOUSE_RELEASED).put(Canvas.Mode.DRAW, new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent me)
-            {
-                // canvas.Select(canvas.newShape);
-
-                PaintLogger.logger.log(Level.INFO, "New shape drawn");
-            }
-        });
-
-        inputHandlers.get(MouseEvent.MOUSE_DRAGGED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent me)
-            {
-                if(canvas.selectedShape != null)
-                {
-                    canvas.selectedShape.Translate(me.getX(), me.getY());
-                }
-            }
-        });
-
-        return inputHandlers;
+        canvas.setOnMouseDragged(this.GetCanvasDefaultEventHandler(canvas));
+        canvas.setOnScroll(this.GetCanvasDefaultEventHandler(canvas));
     }
 
-    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > GetDrawingShapeInputs(final DrawingShape dShape, final Canvas canvas)
+    public void SetDrawingShapeInputHandling(DrawingShape dShape, Shape shape, Rotator rotator, final Canvas canvas) //rotator
     {
-        Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers = new HashMap<>(0);
-
-        inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
-        //inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
-        //inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
-
-        inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
+        shape.setOnMousePressed(me -> 
         {
-            @Override
-            public void handle(MouseEvent me)
+            canvas.GetShapeManagers().get(canvas.GetMode()).Manage(dShape);
+
+            //drawing mode?
+            if(me.isSecondaryButtonDown())
             {
-                canvas.Select(dShape);
+                //popup window
+            }
+        });
+
+        rotator.setOnMousePressed(me ->
+        {
+            me.consume();
+
+            dShape.SetState(DrawingShape.State.ROTATING);
+        });
+
+        // Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers = new HashMap<>(0);
+
+        // inputHandlers.put(MouseEvent.MOUSE_PRESSED, new HashMap<>(0));
+        // //inputHandlers.put(MouseEvent.MOUSE_DRAGGED, new HashMap<>(0));
+        // //inputHandlers.put(MouseEvent.MOUSE_RELEASED, new HashMap<>(0));
+
+        // inputHandlers.get(MouseEvent.MOUSE_PRESSED).put(Canvas.Mode.SELECT, new EventHandler<MouseEvent>()
+        // {
+        //     @Override
+        //     public void handle(MouseEvent me)
+        //     {
+        //         canvas.Select(dShape);
+        //     }
+        // });
+
+        // return inputHandlers;
+    }
+
+    public Map<DrawingShape.State, EventHandler<InputEvent> > GetDrawingShapeInputHandlers(DrawingShape dShape)
+    {
+        Map<DrawingShape.State, EventHandler<InputEvent> > inputHandlers = new HashMap<>(0);
+
+        inputHandlers.put(DrawingShape.State.MOVING, ie ->
+        {
+            if(ie.getEventType() == MouseEvent.MOUSE_DRAGGED)
+            {
+                MouseEvent me = (MouseEvent)ie;
+                dShape.Translate(me.getX(), me.getY());
+            }
+        });
+
+        inputHandlers.put(DrawingShape.State.RESIZING, ie ->
+        {
+            if(ie.getEventType() == MouseEvent.MOUSE_DRAGGED)
+            {
+                MouseEvent me = (MouseEvent)ie;
+                dShape.Resize(2 * (me.getX() - dShape.GetX()), 2 * (me.getY() - dShape.GetY()));
+            }
+        });
+
+        inputHandlers.put(DrawingShape.State.ROTATING, ie ->
+        {
+            if(ie.getEventType() == MouseEvent.MOUSE_DRAGGED)
+            {
+                MouseEvent me = (MouseEvent)ie;
+                if(me.getX() != dShape.GetX() && me.getY() != dShape.GetY())
+                {
+                    double angle = Math.atan2(me.getY() - dShape.GetY(), me.getX() - dShape.GetY());
+                    dShape.Rotate(Math.toDegrees(angle) + 90.0);
+                }
+            }
+        });
+
+        inputHandlers.put(DrawingShape.State.IDLE, ie ->
+        {
+            if(ie.getEventType() == ScrollEvent.SCROLL)
+            {
+                ScrollEvent se = (ScrollEvent)ie;
+
+                dShape.Resize(dShape.GetWidth() * (1 + 0.003 * se.getDeltaY()), dShape.GetHeight() * (1 + 0.003 * se.getDeltaY()));
             }
         });
 
@@ -95,18 +191,39 @@ public class InputHandler
     }
 
     //could use some sort of nametype for this map...
-    public EventHandler<MouseEvent> GetDefaultInputHandler(Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers, Canvas canvas)
+    // public EventHandler<MouseEvent> GetDefaultInputHandler(Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers, Canvas canvas)
+    // {
+    //     return new EventHandler<MouseEvent>()
+    //     {
+    //         @Override
+    //         public void handle(MouseEvent me)
+    //         {
+    //             if(inputHandlers.get(me.getEventType()) != null)
+    //             {
+    //                 if(inputHandlers.get(me.getEventType()).get(canvas.mode) != null)
+    //                 {
+    //                     inputHandlers.get(me.getEventType()).get(canvas.mode).handle(me);
+    //                 }
+    //             }
+    //         }
+    //     };
+    // }
+
+    private EventHandler<InputEvent> GetCanvasDefaultEventHandler(Canvas canvas)
     {
-        return new EventHandler<MouseEvent>()
+        return new EventHandler<InputEvent>()
         {
             @Override
-            public void handle(MouseEvent me)
+            public void handle(InputEvent ie)
             {
-                if(inputHandlers.get(me.getEventType()) != null)
+                DrawingShape currentShape = canvas.GetShapeManagers().get(canvas.GetMode()).GetCurrentShape();
+
+                if(currentShape != null)
                 {
-                    if(inputHandlers.get(me.getEventType()).get(canvas.mode) != null)
+                    EventHandler<InputEvent> shapeInputHandler = currentShape.GetInputHandlers().get(currentShape.GetState());
+                    if(shapeInputHandler != null)
                     {
-                        inputHandlers.get(me.getEventType()).get(canvas.mode).handle(me);
+                        shapeInputHandler.handle(ie);
                     }
                 }
             }

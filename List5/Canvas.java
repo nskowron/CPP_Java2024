@@ -9,66 +9,73 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
-//use set input hanlers like shape?
 public class Canvas extends Pane
 {
     public enum Mode
     {
-        DRAW, SELECT, ROTATE;
+        IDLE, DRAW, SELECT;
     }
 
-    public Mode mode;
-    public DrawingShape drawingTemplate;
-
-    public DrawingShape selectedShape;
-    public DrawingShape newShape;
-
-    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers;
+    private Mode mode;
+    private Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers;
+    private Map<Mode, ShapeManager> shapeManagers;
 
     //we can bind children to it
-    private List<DrawingShape> shapes;
+    //private List<DrawingShape> shapes;
 
-    public Canvas()
+    public Canvas(InputHandler inputHandler)
     {
-        selectedShape = null;
-        newShape = null;
+        mode = Mode.IDLE;
+
+        shapeManagers = new HashMap<>(0);
 
         //FOR NOW
-        shapes = new ArrayList<DrawingShape>(0);
+        //shapes = new ArrayList<DrawingShape>(0);
+
+        inputHandler.SetCanvasInputHandling(this);
 
         this.setMinHeight(300);
         this.setMinWidth(400);
     }
 
-    public List<DrawingShape> GetDrawingShapes()
+    // public List<DrawingShape> GetDrawingShapes()
+    // {
+    //     return Collections.unmodifiableList(shapes);
+    // }
+
+    public Map<Mode, ShapeManager> GetShapeManagers()
     {
-        return Collections.unmodifiableList(shapes);
+        return shapeManagers;
     }
 
-    public void Select(DrawingShape shape)
+    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > GetInputHandlers()
     {
-        this.Unselect();
-
-        selectedShape = shape;
-        //do stuff
-
-        PaintLogger.logger.log(Level.INFO, "Shape selected");
+        return inputHandlers;
     }
 
-    public void Unselect()
+    public void SetMode(Mode newMode) throws IllegalStateException
     {
-        //do stuff
-        selectedShape = null;
+        DrawingShape currentShape = shapeManagers.get(mode).GetCurrentShape();
+        if(currentShape != null && currentShape.GetState() != DrawingShape.State.IDLE)
+        {
+            throw new IllegalStateException("Cannot change mode when drawing shape is working");
+        }
 
-        PaintLogger.logger.log(Level.INFO, "Shape unselected");
+        mode = newMode;
     }
 
-    public void SetInputHandlers(InputHandler inputHandler)
+    public Mode GetMode()
     {
-        inputHandlers = inputHandler.GetCanvasInputs(this);
-        this.setOnMousePressed(inputHandler.GetDefaultInputHandler(inputHandlers, this));
-        this.setOnMouseDragged(inputHandler.GetDefaultInputHandler(inputHandlers, this));
-        this.setOnMouseReleased(inputHandler.GetDefaultInputHandler(inputHandlers, this));
+        return mode;
     }
+
+    // public void SetInputHandlers(InputHandler inputHandler)
+    // {
+    //     inputHandlers = inputHandler.GetCanvasInputs(this);
+    //     this.setOnMousePressed(inputHandler.GetDefaultInputHandler(inputHandlers, this));
+    //     this.setOnMouseDragged(inputHandler.GetDefaultInputHandler(inputHandlers, this));
+    //     this.setOnMouseReleased(inputHandler.GetDefaultInputHandler(inputHandlers, this));
+    // }
 }
