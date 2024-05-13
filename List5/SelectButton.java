@@ -5,7 +5,7 @@ import java.util.logging.Level;
 
 public class SelectButton extends OptionButton
 {
-    public SelectButton(String pathToIcon, Canvas canvas)
+    public SelectButton(final String pathToIcon, State state)
     {
         super(pathToIcon);
 
@@ -16,7 +16,7 @@ public class SelectButton extends OptionButton
             {
                 PaintLogger.logger.log(Level.INFO, "Select button clicked");
 
-                canvas.SetMode(Canvas.Mode.SELECT);
+                state.setMode(Mode.SELECT);
             }
         });
     }

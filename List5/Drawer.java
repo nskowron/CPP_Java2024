@@ -1,60 +1,29 @@
-import javafx.scene.input.MouseEvent;
-
-public class Drawer implements ShapeManager
+public class Drawer
 {
-    private DrawingShape drawingTemplate;
-    private DrawingShape newShape;
+    private Drawable drawingTemplate;
     private Canvas canvas;
-    private InputHandler inputHandler;
-
-    public Drawer(Canvas canvas, InputHandler inputHandler)
+    
+    public Drawer(Canvas canvas)
     {
         drawingTemplate = null;
-        newShape = null;
         this.canvas = canvas;
-        this.inputHandler = inputHandler;
     }
 
-    @Override
-    public DrawingShape GetCurrentShape()
+    public Drawable draw(double x, double y)
     {
-        return newShape;
-    }
+        Drawable drawnObject = drawingTemplate.clone();
 
-    @Override
-    public void Manage(DrawingShape shape)
-    {
+        drawnObject.setTranslateX(x);
+        drawnObject.setTranslateY(y);
 
-    }
-
-    @Override
-    public void ManageNew(MouseEvent me)
-    {
-        newShape = drawingTemplate.Clone();
-        newShape.GetInputHandlers().putAll(inputHandler.GetDrawingShapeInputHandlers(newShape));
-        newShape.SetInputHandling(inputHandler, canvas);
-
-        newShape.Translate(me.getX(), me.getY());
-        newShape.Resize(0, 0);
-        newShape.SetState(DrawingShape.State.RESIZING);
+        //add paint
         
-        canvas.getChildren().addLast(newShape);
+        drawnObject.draw(canvas);
+        return drawnObject;
     }
 
-    public void SetDrawingTemplate(final DrawingShape template)
+    public void setTemplate(Drawable object)
     {
-        drawingTemplate = template;
-    }
-
-    public void StartDrawing()
-    {
-        newShape = drawingTemplate.Clone();
-        newShape.SetState(DrawingShape.State.RESIZING);
-    }
-
-    public void StopDrawing()
-    {
-        newShape.SetState(DrawingShape.State.IDLE);
-        newShape = null;
+        drawingTemplate = object;
     }
 }

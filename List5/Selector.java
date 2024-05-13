@@ -1,46 +1,39 @@
-import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
-public class Selector implements ShapeManager
+public class Selector
 {
-    private DrawingShape selectedShape;
+    private Drawable selectedObject;
     private Canvas canvas;
 
     public Selector(Canvas canvas)
     {
-        selectedShape = null;
+        selectedObject = null;
         this.canvas = canvas;
     }
 
-    @Override
-    public DrawingShape GetCurrentShape()
+    public Drawable getSelected()
     {
-        return selectedShape;
+        return selectedObject;
     }
 
-    @Override
-    public void Manage(DrawingShape shape)
+    public void select(Drawable object)
     {
-        this.Unselect();
+        this.unselect();
 
-        if(shape != null)
-        {
-            selectedShape = shape;
-            selectedShape.SetState(DrawingShape.State.MOVING);
-            
-            canvas.getChildren().remove(selectedShape);
-            canvas.getChildren().addLast(selectedShape);
-        }
+        object.delete();
+        object.draw(canvas);
+
+        object.setStroke(new Color(0.678, 0.847, 0.902, 1.0));
+        object.setStrokeWidth(5);
+        
+        selectedObject = object;
     }
 
-    @Override
-    public void ManageNew(MouseEvent me)
+    public void unselect()
     {
-        this.Unselect();
-    }
+        selectedObject.setStroke(selectedObject.getFill());
+        selectedObject.setStrokeWidth(0);
 
-    public void Unselect()
-    {
-        //do stuff
-        selectedShape = null;
+        selectedObject = null;
     }
 }
