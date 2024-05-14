@@ -1,47 +1,44 @@
 import javafx.event.*;
 import javafx.scene.input.MouseEvent;
 
+import java.util.logging.Level;
+
 public enum Mode
 {
-    IDLE()
-    {
-        @Override
-        public EventHandler<Event> getEventFilter() throws IllegalStateException
-        {
-            return event ->
-            {
-                event.consume();
-            };
-        }
-    },
     SELECT()
     {
+        // @Override
+        // public EventHandler<Event> getEventFilter() throws IllegalStateException
+        // {
+        //     if(selector == null)
+        //     {
+        //         throw new IllegalStateException("Selector has not been set");
+        //     }
+
+        //     return event ->
+        //     {
+        //         //filter out press events
+        //         if(event.getEventType() == MouseEvent.MOUSE_PRESSED)
+        //         {
+        //             event.consume();
+
+        //             //could also check every object if contains x and y
+        //             if(event.getSource() instanceof Drawable)
+        //             {
+        //                 selector.select((Drawable)event.getSource());
+        //             }
+        //             else
+        //             {
+        //                 selector.unselect();
+        //             }
+        //         }
+        //     };
+        // }
+
         @Override
-        public EventHandler<Event> getEventFilter() throws IllegalStateException
+        public EventHandler<Event> getEventFilter()
         {
-            if(selector == null)
-            {
-                throw new IllegalStateException("Selector has not been set");
-            }
-
-            return event ->
-            {
-                //filter out press events
-                if(event.getEventType() == MouseEvent.MOUSE_PRESSED)
-                {
-                    event.consume();
-
-                    //could also check every object if contains x and y
-                    if(event.getSource() instanceof Drawable)
-                    {
-                        selector.select((Drawable)event.getSource());
-                    }
-                    else
-                    {
-                        selector.unselect();
-                    }
-                }
-            };
+            return event -> {};
         }
     },
     DRAW()
@@ -49,9 +46,9 @@ public enum Mode
         @Override
         public EventHandler<Event> getEventFilter() throws IllegalStateException
         {
-            if(selector == null)
+            if(drawer == null)
             {
-                throw new IllegalStateException("Selector has not been set");
+                throw new IllegalStateException("Drawer has not been set");
             }
 
             return new EventHandler<Event>()
@@ -65,8 +62,11 @@ public enum Mode
                     {
                         event.consume();
 
+                        PaintLogger.logger.log(Level.INFO, "Started drawing");
+
                         MouseEvent me = (MouseEvent)event;
                         drawnShape = drawer.draw(me.getX(), me.getY());
+                        
                     }
                     else if(event.getEventType() == MouseEvent.MOUSE_DRAGGED)
                     {
@@ -84,7 +84,6 @@ public enum Mode
         }
     };
 
-    protected static Selector selector;
     protected static Drawer drawer;
 
     private Mode()
@@ -92,12 +91,7 @@ public enum Mode
 
     }
 
-    public abstract EventHandler<Event> getEventFilter() throws IllegalStateException;
-
-    public static void setSelector(Selector newSelector)
-    {
-        selector = newSelector;
-    }
+    public abstract EventHandler<Event> getEventFilter(); //throws IllegalStateException;
 
     public static void setDrawer(Drawer newDrawer)
     {

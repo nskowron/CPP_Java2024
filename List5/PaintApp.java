@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 public final class PaintApp extends Application
@@ -16,6 +18,9 @@ public final class PaintApp extends Application
     @Override
     public void start(Stage stage)
     {
-        new PaintGUI(stage);
+        Map<String, DrawableObjectSupplier> handledObjects = new HashMap<>(0);
+        handledObjects.put("Ellipse", new EllipseSupplier());
+
+        new PaintGUI(stage, handledObjects);
     }
 }

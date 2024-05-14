@@ -1,22 +1,27 @@
 import javafx.event.*;
 
-public class State
+import java.util.logging.Level;
+
+public class Controller
 {
     private Mode mode;
     private Canvas canvas;
     private EventHandler<Event> filter;
 
-    public State(Canvas canvas)
+    public Controller(Canvas canvas, Drawer drawer)
     {
         this.canvas = canvas;
-        filter = null;
-        this.setMode(Mode.IDLE);
+        filter = e -> {};
+
+        Mode.setDrawer(drawer);
+        this.setMode(Mode.SELECT);
     }
 
     public void setMode(Mode newMode)
     {
-        mode = newMode;
         canvas.removeEventFilter(EventType.ROOT, filter);
+
+        mode = newMode;
         filter = mode.getEventFilter();
         canvas.addEventFilter(EventType.ROOT, filter);
     }

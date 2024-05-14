@@ -5,7 +5,7 @@ import java.util.logging.Level;
 
 public class DrawingButton extends OptionButton
 {
-    public DrawingButton(final String pathToIcon, final Drawable object, Drawer drawer, State state)
+    public DrawingButton(final String pathToIcon, final String type, Drawer drawer, Controller controller, Selector selector)
     {
         super(pathToIcon);
         
@@ -16,8 +16,9 @@ public class DrawingButton extends OptionButton
             {
                 PaintLogger.logger.log(Level.INFO, "Drawing button clicked");
 
-                drawer.setTemplate(object);
-                state.setMode(Mode.DRAW);
+                selector.unselect();
+                drawer.setType(type);
+                controller.setMode(Mode.DRAW);
             }
         });
     }

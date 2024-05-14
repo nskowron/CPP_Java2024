@@ -1,14 +1,14 @@
 import javafx.scene.paint.Color;
 
+import java.util.logging.Level;
+
 public class Selector
 {
     private Drawable selectedObject;
-    private Canvas canvas;
 
-    public Selector(Canvas canvas)
+    public Selector()
     {
         selectedObject = null;
-        this.canvas = canvas;
     }
 
     public Drawable getSelected()
@@ -20,20 +20,24 @@ public class Selector
     {
         this.unselect();
 
-        object.delete();
-        object.draw(canvas);
+        object.redraw();
 
-        object.setStroke(new Color(0.678, 0.847, 0.902, 1.0));
-        object.setStrokeWidth(5);
+        object.setStroke(new Color(0.259, 0.576, 0.961, 1.0));
+        object.setStrokeWidth(3);
         
+        PaintLogger.logger.log(Level.INFO, "Selecting");
         selectedObject = object;
     }
 
     public void unselect()
     {
-        selectedObject.setStroke(selectedObject.getFill());
-        selectedObject.setStrokeWidth(0);
+        PaintLogger.logger.log(Level.INFO, "Unselecting");
+        if(selectedObject != null)
+        {
+            selectedObject.setStroke(selectedObject.getFill());
+            selectedObject.setStrokeWidth(0);
 
-        selectedObject = null;
+            selectedObject = null;
+        }
     }
 }

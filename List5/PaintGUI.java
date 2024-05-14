@@ -1,36 +1,31 @@
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.*;
-import javafx.scene.Node;
+import java.util.Map;
 
 public class PaintGUI
 {
-    public PaintGUI(Stage stage)
+    public PaintGUI(Stage stage, Map<String, DrawableObjectSupplier> handledObjects)
     {
         BorderPane root = new BorderPane();
 
-        //Shape test = new Circle();
-        //test
+        DrawableObjectInstantiator instantiator = new DrawableObjectInstantiator(handledObjects);
 
-        Canvas canvas = new Canvas();
+        Selector selector = new Selector();
+        Canvas canvas = new Canvas(selector);
+        Drawer drawer = new Drawer(instantiator, canvas);
 
-        Selector selector = new Selector(canvas);
-        Drawer drawer = new Drawer(canvas);
-
-        Mode.setSelector(selector);
-        Mode.setDrawer(drawer);
-
-        State state = new State(canvas);
+        Controller controller = new Controller(canvas, drawer);
         
-
         OptionPalette optionPalette = new OptionPalette();
-        optionPalette.AddAll(optionButtons);
+        optionPalette.add(new SelectButton("icons/select.png", controller));
+        for(String type : handledObjects.keySet())
+        {
+            optionPalette.add(new DrawingButton("icons/" + type + ".png", type, drawer, controller, selector));
+        }
 
         root.setTop(optionPalette);
         root.setCenter(canvas);
-
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

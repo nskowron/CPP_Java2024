@@ -27,19 +27,5 @@ public class DrawableObjectData implements Serializable
 
         this.width = width;
         this.height = height;
-
-        translateX = 0;
-        translateY = 0;
-
-        scaleX = 1;
-        scaleY = 1;
-
-        angle = 0;
-
-
-        fillR = 0;
-        fillG = 0;
-        fillB = 0;
-        fillA = 1;
     }
 }
