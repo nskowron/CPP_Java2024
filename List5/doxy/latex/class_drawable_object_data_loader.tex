@@ -1,0 +1,71 @@
+\doxysection{Drawable\+Object\+Data\+Loader Class Reference}
+\hypertarget{class_drawable_object_data_loader}{}\label{class_drawable_object_data_loader}\index{DrawableObjectDataLoader@{DrawableObjectDataLoader}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_drawable_object_data}{Drawable\+Object\+Data}} $>$ \mbox{\hyperlink{class_drawable_object_data_loader_a5da46cb7f7a875f1dc29e4fa2a5f4daf}{load}} (File file)  throws IOException, Class\+Not\+Found\+Exception, Class\+Cast\+Exception 
+\begin{DoxyCompactList}\small\item\em Loads \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects from a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_drawable_object_data_loader_a18ff6df184e435a0a712f55c273f9128}{save}} (List$<$ \mbox{\hyperlink{class_drawable_object_data}{Drawable\+Object\+Data}} $>$ data, File file)  throws IOException, File\+Not\+Found\+Exception 
+\begin{DoxyCompactList}\small\item\em Saves a list of \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utility class for loading and saving \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_drawable_object_data_loader_a5da46cb7f7a875f1dc29e4fa2a5f4daf}\label{class_drawable_object_data_loader_a5da46cb7f7a875f1dc29e4fa2a5f4daf} 
+\index{DrawableObjectDataLoader@{DrawableObjectDataLoader}!load@{load}}
+\index{load@{load}!DrawableObjectDataLoader@{DrawableObjectDataLoader}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily List$<$ \mbox{\hyperlink{class_drawable_object_data}{Drawable\+Object\+Data}} $>$ Drawable\+Object\+Data\+Loader.\+load (\begin{DoxyParamCaption}\item[{File}]{file }\end{DoxyParamCaption}) throws IOException, Class\+Not\+Found\+Exception, Class\+Cast\+Exception}
+
+
+
+Loads \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects from a file. 
+
+Loads \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects from a file. 
+\begin{DoxyParams}{Parameters}
+{\em file} & The file to load the data from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A list of \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects loaded from the file. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & If an I/O error occurs. \\
+\hline
+{\em Class\+Not\+Found\+Exception} & If the class of the serialized object cannot be found. \\
+\hline
+{\em Class\+Cast\+Exception} & If the object read from the file is not of the expected type. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_drawable_object_data_loader_a18ff6df184e435a0a712f55c273f9128}\label{class_drawable_object_data_loader_a18ff6df184e435a0a712f55c273f9128} 
+\index{DrawableObjectDataLoader@{DrawableObjectDataLoader}!save@{save}}
+\index{save@{save}!DrawableObjectDataLoader@{DrawableObjectDataLoader}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void Drawable\+Object\+Data\+Loader.\+save (\begin{DoxyParamCaption}\item[{List$<$ \mbox{\hyperlink{class_drawable_object_data}{Drawable\+Object\+Data}} $>$}]{data,  }\item[{File}]{file }\end{DoxyParamCaption}) throws IOException, File\+Not\+Found\+Exception}
+
+
+
+Saves a list of \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects to a file. 
+
+Saves a list of \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects to a file. 
+\begin{DoxyParams}{Parameters}
+{\em data} & The list of \doxylink{class_drawable_object_data}{Drawable\+Object\+Data} objects to save. \\
+\hline
+{\em file} & The file to save the data to. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & If an I/O error occurs. \\
+\hline
+{\em File\+Not\+Found\+Exception} & If the specified file cannot be found. \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_drawable_object_data_loader_8java}{Drawable\+Object\+Data\+Loader.\+java}}\end{DoxyCompactItemize}
