@@ -1,5 +1,3 @@
-import java.io.Serializable;
-
 public interface Drawable extends Transformable, Colorable, Controllable
 {
     public void draw(Canvas canvas);

@@ -1,11 +1,8 @@
 import javafx.event.*;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-
-import java.util.logging.Level;
 
 public class Controller
 {

@@ -7,34 +7,6 @@ public enum Mode
 {
     SELECT()
     {
-        // @Override
-        // public EventHandler<Event> getEventFilter() throws IllegalStateException
-        // {
-        //     if(selector == null)
-        //     {
-        //         throw new IllegalStateException("Selector has not been set");
-        //     }
-
-        //     return event ->
-        //     {
-        //         //filter out press events
-        //         if(event.getEventType() == MouseEvent.MOUSE_PRESSED)
-        //         {
-        //             event.consume();
-
-        //             //could also check every object if contains x and y
-        //             if(event.getSource() instanceof Drawable)
-        //             {
-        //                 selector.select((Drawable)event.getSource());
-        //             }
-        //             else
-        //             {
-        //                 selector.unselect();
-        //             }
-        //         }
-        //     };
-        // }
-
         @Override
         public EventHandler<Event> getEventFilter()
         {
@@ -89,12 +61,7 @@ public enum Mode
 
     protected static Drawer drawer;
 
-    private Mode()
-    {
-
-    }
-
-    public abstract EventHandler<Event> getEventFilter(); //throws IllegalStateException;
+    public abstract EventHandler<Event> getEventFilter();
 
     public static void setDrawer(Drawer newDrawer)
     {

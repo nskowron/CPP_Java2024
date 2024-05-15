@@ -2,12 +2,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -37,7 +35,14 @@ public class MainMenu extends MenuBar
         MenuItem usage = new MenuItem("usage");
         usage.setOnAction(event ->
         {
-            InfoDisplayer.display("Usage", "TODO");
+            InfoDisplayer.display("Usage", 
+            "Buttons with triangle, rectangle and circle allow drawing chosen shape\n" +
+            "4th button allows selecting shapes.\n" + 
+            "Click on the canvas to draw / select shape\n" + 
+            "Drag to draw / move\n" + 
+            "Scroll to resize\n" + 
+            "Scroll + ctrl to rotate\n" + 
+            "Right-click shape to open more editing options");
         });
 
         info.getItems().addAll(author, usage);

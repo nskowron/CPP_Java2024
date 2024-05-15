@@ -8,13 +8,20 @@ public abstract class OptionButton extends Button
         double x = 30;
         double y = 25;
         
-        //add checking if file exists
-        Image icon = new Image(getClass().getResourceAsStream(pathToIcon));
-        ImageView iconView = new ImageView(icon);
-        iconView.setFitWidth(x);
-        iconView.setFitHeight(y);
+        try
+        {
+            Image icon = new Image(getClass().getResourceAsStream(pathToIcon));
+            ImageView iconView = new ImageView(icon);
+            iconView.setFitWidth(x);
+            iconView.setFitHeight(y);
 
-        this.setGraphic(iconView);
+            this.setGraphic(iconView);
+        }
+        catch(NullPointerException | IllegalArgumentException e)
+        {
+            this.setText(pathToIcon);
+            ErrorHandler.showError("Icon not found", "Icon " + pathToIcon + " required by OptionButton has not been found");
+        }
 
         setMinHeight(y);
         setMinWidth(x);

@@ -1,26 +1,26 @@
-import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Polygon;
 import javafx.scene.paint.Color;
 
-public class DrawableEllipse extends Ellipse implements Drawable
+public class DrawableTriangle extends Polygon implements Drawable
 {
     private final double originalWidth;
     private final double originalHeight;
 
     private Canvas canvas;
 
-    public DrawableEllipse(double radiusX, double radiusY)
+    public DrawableTriangle(double x1, double y1, double x2, double y2, double x3, double y3)
     {
-        super(0, 0, radiusX, radiusY);
+        super(x1, y1, x2, y2, x3, y3);
 
-        originalWidth = 2 * radiusX;
-        originalHeight = 2 * radiusY;
+        originalWidth = Math.max(x1, Math.max(x2, x3)) - Math.min(x1, Math.min(x2, x3));
+        originalHeight = Math.max(y1, Math.max(y2, y3)) - Math.min(y1, Math.min(y2, y3));
 
         canvas = null;
     }
 
     public DrawableObjectData getData()
     {
-        DrawableObjectData data = new DrawableObjectData("Ellipse", originalWidth, originalHeight);
+        DrawableObjectData data = new DrawableObjectData("Triangle", originalWidth, originalHeight);
         data.translateX = getTranslateX();
         data.translateY = getTranslateY();
         data.scaleX = getScaleX();
@@ -101,3 +101,4 @@ public class DrawableEllipse extends Ellipse implements Drawable
         }
     }
 }
+

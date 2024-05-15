@@ -20,6 +20,8 @@ public final class PaintApp extends Application
     {
         Map<String, DrawableObjectSupplier> handledObjects = new HashMap<>(0);
         handledObjects.put("Ellipse", new EllipseSupplier());
+        handledObjects.put("Triangle", new TriangleSupplier());
+        handledObjects.put("Rectangle", new RectangleSupplier());
 
         new PaintGUI(stage, handledObjects);
     }
