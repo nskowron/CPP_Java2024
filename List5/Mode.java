@@ -61,12 +61,15 @@ public enum Mode
                     if(event.getEventType() == MouseEvent.MOUSE_PRESSED)
                     {
                         event.consume();
-
-                        PaintLogger.logger.log(Level.INFO, "Started drawing");
-
-                        MouseEvent me = (MouseEvent)event;
-                        drawnShape = drawer.draw(me.getX(), me.getY());
                         
+                        MouseEvent me = (MouseEvent)event;
+
+                        if(me.isPrimaryButtonDown())
+                        {
+                            PaintLogger.logger.log(Level.INFO, "Started drawing");
+
+                            drawnShape = drawer.draw(me.getX(), me.getY());
+                        }
                     }
                     else if(event.getEventType() == MouseEvent.MOUSE_DRAGGED)
                     {

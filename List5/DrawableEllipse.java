@@ -1,4 +1,6 @@
 import javafx.scene.shape.Ellipse;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 import java.util.logging.Level;
@@ -39,7 +41,7 @@ public class DrawableEllipse extends Ellipse implements Drawable
         }
         catch(ClassCastException e)
         {
-
+            //don't save non-colors
         }
 
         return data;
@@ -48,15 +50,15 @@ public class DrawableEllipse extends Ellipse implements Drawable
     public void draw(Canvas canvas)
     {
         this.canvas = canvas;
-        canvas.add(this, this);
+        canvas.add(this);
     }
 
     public void redraw()
     {
         if(canvas != null);
         {
-            canvas.getChildren().remove(this);
-            canvas.getChildren().addLast(this);
+            canvas.remove(this);
+            canvas.add(this);
         }
     }
 
@@ -64,7 +66,7 @@ public class DrawableEllipse extends Ellipse implements Drawable
     {
         if(canvas != null);
         {
-            canvas.remove(this, this);
+            canvas.remove(this);
             canvas = null;
         }
     }

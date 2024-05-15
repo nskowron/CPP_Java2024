@@ -1,6 +1,6 @@
 import java.io.Serializable;
-// import java.util.ArrayList;
-// import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.logging.Level;
 
@@ -9,87 +9,46 @@ import javafx.scene.layout.Pane;
 
 public class Canvas extends Pane implements Serializable
 {
-    //private List<Drawable> objects;
-    private Drawable primarilyClicked;
+    private List<Drawable> objects;
+    private Controller controller;
 
-    public Canvas(Selector selector)
+    public Canvas()
     {
-        //objects = new ArrayList<>(0);
-
-        primarilyClicked = null;
+        objects = new ArrayList<>(0);
 
         setMinSize(400, 300);
-
-        setOnMouseDragged(me ->
-        {
-            if(me.isPrimaryButtonDown() && selector.getSelected() != null)
-            {
-                selector.getSelected().setTranslateX(me.getX());
-                selector.getSelected().setTranslateY(me.getY());
-            }
-        });
-
-        setOnMousePressed(me ->
-        {
-            if(primarilyClicked != null)
-            {
-                selector.select(primarilyClicked);
-            }
-            else
-            {
-                selector.unselect();
-            }
-        });
-
-        setOnScroll(se ->
-        {
-            Drawable selected = selector.getSelected();
-            if(selected != null)
-            {
-                if(se.isControlDown())
-                {
-                    selected.setRotate(selected.getRotate() + (Math.PI * 0.01 * se.getDeltaY()));
-                }
-                else
-                {
-                    selected.setWidth(selected.getWidth() * (1 + 0.01 * se.getDeltaY()));
-                    selected.setHeight(selected.getHeight() * (1 + 0.01 * se.getDeltaY()));
-                }
-            }
-        });
     }
 
-    public void add(Drawable object, Node objectNode)
+    public void addController(Controller controller)
     {
-        objectNode.setOnMousePressed(me ->
-        {
-            if(primarilyClicked == null)
-            {
-                primarilyClicked = object;
-            }
-        });
-
-        objectNode.setOnMouseReleased(me ->
-        {
-            primarilyClicked = null;
-        });
-
-        getChildren().add(objectNode);
-        //add list of drawables
+        this.controller = controller;
     }
 
-    public void remove(Drawable object, Node objectNode)
+    public void add(Drawable object)
     {
-        objectNode.setOnMousePressed(null);
-        objectNode.setOnMouseReleased(null);
+        objects.add(object);
+        controller.addControllable(object);
 
-        getChildren().remove(objectNode);
-        //itd
+        if(object instanceof Node)
+        {
+            getChildren().add((Node)object);
+        }
+    }
+
+    public void remove(Drawable object)
+    {
+        if(object instanceof Node)
+        {
+            getChildren().remove((Node)object);
+        }
+
+        controller.removeControllable(object);
+        objects.remove(object);
     }
 
 
-    // public List<Drawable> getObjects()
-    // {
-    //     return objects;
-    // }
+    public List<Drawable> getObjects()
+    {
+        return objects;
+    }
 }

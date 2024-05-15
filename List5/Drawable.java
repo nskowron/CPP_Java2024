@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public interface Drawable extends Serializable, Transformable, Colorable
+public interface Drawable extends Transformable, Colorable, Controllable
 {
     public void draw(Canvas canvas);
     public void redraw();
