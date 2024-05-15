@@ -23,7 +23,7 @@ public class Selector
         object.redraw();
 
         object.setStroke(new Color(0.259, 0.576, 0.961, 1.0));
-        object.setStrokeWidth(3);
+        object.setStrokeWidth(2);
         
         PaintLogger.logger.log(Level.INFO, "Selecting");
         selectedObject = object;
