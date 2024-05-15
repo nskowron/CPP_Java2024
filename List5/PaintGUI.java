@@ -1,29 +1,52 @@
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
+import java.util.Map;
 
 public class PaintGUI
 {
-    public PaintGUI(Stage stage)
+    public PaintGUI(Stage stage, Map<String, DrawableObjectSupplier> handledObjects)
     {
         BorderPane root = new BorderPane();
 
+        DrawableObjectInstantiator instantiator = new DrawableObjectInstantiator(handledObjects);
+        DrawableObjectDataLoader loader = new DrawableObjectDataLoader();
+
+        VBox topPanel = new VBox();
+        GridPane editPanel = new GridPane();
+
+        ColorPicker colorPicker = new ColorPicker(Color.RED);
+
         Canvas canvas = new Canvas();
-        canvas.SetInputHandlers(new InputHandler());
+        Selector selector = new Selector();
+        Drawer drawer = new Drawer(instantiator, canvas, colorPicker);
 
-        DrawingShapeButton ellipse = new DrawingShapeButton("icons/ellipse.png", new DrawingCircle(100), canvas);
-        DrawingShapeButton rectangle = new DrawingShapeButton("icons/rectangle.png", new DrawingSquare(100), canvas);
-        DrawingShapeButton triangle = new DrawingShapeButton("icons/triangle.png", new DrawingTriangle(100), canvas);
-        
-        SelectButton select = new SelectButton("icons/select.png", canvas);
+        Controller controller = new Controller(root, canvas, selector, drawer, colorPicker);
 
-        OptionButton[] optionButtons = {select, ellipse, rectangle, triangle};
         OptionPalette optionPalette = new OptionPalette();
-        optionPalette.AddAll(optionButtons);
+        optionPalette.add(new SelectButton("icons/select.png", controller));
+        for(String type : handledObjects.keySet())
+        {
+            optionPalette.add(new DrawingButton("icons/" + type + ".png", type, drawer, controller, selector));
+        }
 
-        root.setTop(optionPalette);
+        editPanel.add(optionPalette, 0, 0);
+        editPanel.add(colorPicker, 1, 0);
+        GridPane.setHgrow(optionPalette, Priority.ALWAYS);
+
+        MainMenu menu = new MainMenu(stage, loader, instantiator, canvas);
+
+        topPanel.getChildren().add(menu);
+        topPanel.getChildren().add(editPanel);
+
+        root.setTop(topPanel);
         root.setCenter(canvas);
-
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

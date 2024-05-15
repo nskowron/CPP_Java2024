@@ -2,11 +2,16 @@ import javafx.scene.layout.GridPane;
 
 public class OptionPalette extends GridPane
 {
-    public void AddAll(OptionButton[] buttons)
+    private int size;
+
+    public OptionPalette()
     {
-        for(int i = 0; i < buttons.length; ++i)
-        {
-            this.add(buttons[i], i, 0);
-        }
+        size = 0;
+    }
+
+    public void add(OptionButton button)
+    {
+        add(button, size, 0);
+        ++size;
     }
 }

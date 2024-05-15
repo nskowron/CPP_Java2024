@@ -3,7 +3,7 @@ import javafx.scene.image.*;
 
 public abstract class OptionButton extends Button
 {
-    public OptionButton(String pathToIcon)
+    public OptionButton(final String pathToIcon)
     {
         double x = 30;
         double y = 25;

@@ -1,74 +1,54 @@
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.logging.Level;
 
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.Collections;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
-//use set input hanlers like shape?
-public class Canvas extends Pane
+public class Canvas extends Pane implements Serializable
 {
-    public enum Mode
-    {
-        DRAW, SELECT, ROTATE;
-    }
-
-    public Mode mode;
-    public DrawingShape drawingTemplate;
-
-    public DrawingShape selectedShape;
-    public DrawingShape newShape;
-
-    public Map<EventType<MouseEvent>, Map<Canvas.Mode, EventHandler<MouseEvent> > > inputHandlers;
-
-    //we can bind children to it
-    private List<DrawingShape> shapes;
+    private List<Drawable> objects;
+    private Controller controller;
 
     public Canvas()
     {
-        selectedShape = null;
-        newShape = null;
+        objects = new ArrayList<>(0);
 
-        //FOR NOW
-        shapes = new ArrayList<DrawingShape>(0);
-
-        this.setMinHeight(300);
-        this.setMinWidth(400);
+        setMinSize(400, 300);
     }
 
-    public List<DrawingShape> GetDrawingShapes()
+    public void addController(Controller controller)
     {
-        return Collections.unmodifiableList(shapes);
+        this.controller = controller;
     }
 
-    public void Select(DrawingShape shape)
+    public void add(Drawable object)
     {
-        this.Unselect();
+        objects.add(object);
+        controller.addControllable(object);
 
-        selectedShape = shape;
-        //do stuff
-
-        PaintLogger.logger.log(Level.INFO, "Shape selected");
+        if(object instanceof Node)
+        {
+            getChildren().add((Node)object);
+        }
     }
 
-    public void Unselect()
+    public void remove(Drawable object)
     {
-        //do stuff
-        selectedShape = null;
+        if(object instanceof Node)
+        {
+            getChildren().remove((Node)object);
+        }
 
-        PaintLogger.logger.log(Level.INFO, "Shape unselected");
+        controller.removeControllable(object);
+        objects.remove(object);
     }
 
-    public void SetInputHandlers(InputHandler inputHandler)
+
+    public List<Drawable> getObjects()
     {
-        inputHandlers = inputHandler.GetCanvasInputs(this);
-        this.setOnMousePressed(inputHandler.GetDefaultInputHandler(inputHandlers, this));
-        this.setOnMouseDragged(inputHandler.GetDefaultInputHandler(inputHandlers, this));
-        this.setOnMouseReleased(inputHandler.GetDefaultInputHandler(inputHandlers, this));
+        return objects;
     }
 }
