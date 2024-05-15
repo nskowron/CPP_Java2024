@@ -4,9 +4,9 @@ public class EllipseSupplier implements DrawableObjectSupplier
 {
     public Drawable get(DrawableObjectData data) throws IllegalArgumentException
     {
-        if(data.type != "Ellipse")
+        if(!data.type.equals("Ellipse"))
         {
-            throw new IllegalArgumentException("Wrong type of Drawable object");
+            throw new IllegalArgumentException("Wrong type of Drawable object, expected Ellipse, got " + data.type);
         }
 
         Drawable ellipse = new DrawableEllipse(data.width / 2.0, data.height / 2.0);

@@ -4,6 +4,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.Map;
@@ -14,9 +15,11 @@ public class PaintGUI
     {
         BorderPane root = new BorderPane();
 
-        GridPane editPanel = new GridPane();
-
         DrawableObjectInstantiator instantiator = new DrawableObjectInstantiator(handledObjects);
+        DrawableObjectDataLoader loader = new DrawableObjectDataLoader();
+
+        VBox topPanel = new VBox();
+        GridPane editPanel = new GridPane();
 
         ColorPicker colorPicker = new ColorPicker(Color.RED);
 
@@ -25,7 +28,7 @@ public class PaintGUI
         Drawer drawer = new Drawer(instantiator, canvas, colorPicker);
 
         Controller controller = new Controller(root, canvas, selector, drawer, colorPicker);
-        
+
         OptionPalette optionPalette = new OptionPalette();
         optionPalette.add(new SelectButton("icons/select.png", controller));
         for(String type : handledObjects.keySet())
@@ -37,7 +40,12 @@ public class PaintGUI
         editPanel.add(colorPicker, 1, 0);
         GridPane.setHgrow(optionPalette, Priority.ALWAYS);
 
-        root.setTop(editPanel);
+        MainMenu menu = new MainMenu(stage, loader, instantiator, canvas);
+
+        topPanel.getChildren().add(menu);
+        topPanel.getChildren().add(editPanel);
+
+        root.setTop(topPanel);
         root.setCenter(canvas);
 
         Scene scene = new Scene(root);

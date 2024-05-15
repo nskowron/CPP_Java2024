@@ -12,40 +12,25 @@ import java.util.logging.Level;
 
 public class DrawableObjectDataLoader
 {
-    public List<DrawableObjectData> load(File file) throws IOException, FileNotFoundException, ClassNotFoundException
+    public List<DrawableObjectData> load(File file) throws IOException, ClassNotFoundException, ClassCastException
     {
         FileInputStream fileInputStream = new FileInputStream(file);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-        List<DrawableObjectData> datas = new ArrayList<>(0);
-        try
-        {
-            while(true)
-            {
-                DrawableObjectData data = (DrawableObjectData)objectInputStream.readObject();
-                datas.add(data);
-            }
-        }
-        catch(EOFException eof)
-        {
-            PaintLogger.logger.log(Level.INFO, "Object data loaded");
-        }
+        List<DrawableObjectData> data = (List<DrawableObjectData>)objectInputStream.readObject();
 
         objectInputStream.close();
         fileInputStream.close();
 
-        return datas;
+        return data;
     }
 
-    public void save(List<DrawableObjectData> datas, File file) throws IOException, FileNotFoundException
+    public void save(List<DrawableObjectData> data, File file) throws IOException, FileNotFoundException
     {
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-        for(DrawableObjectData data : datas)
-        {
-            objectOutputStream.writeObject(data);
-        }
+        objectOutputStream.writeObject(data);
 
         objectOutputStream.close();
         fileOutputStream.close();
