@@ -1,0 +1,84 @@
+\doxysection{Selector Class Reference}
+\hypertarget{class_selector}{}\label{class_selector}\index{Selector@{Selector}}
+
+
+A class for managing the selection of objects on the canvas.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_selector_a95ba4920a27b04c762bd35acc0772411}{Selector}} ()
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{class_selector}{Selector} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_drawable}{Drawable}} \mbox{\hyperlink{class_selector_a2884ddebbb73e405f1b22464469c4981}{get\+Selected}} ()
+\begin{DoxyCompactList}\small\item\em Gets the currently selected drawable object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_selector_a7b835e44f92f1e38196ee49c27a08b33}{select}} (\mbox{\hyperlink{interface_drawable}{Drawable}} object)
+\begin{DoxyCompactList}\small\item\em Selects the specified drawable object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_selector_ae1ebbcac8d47f06867f140aa785526e5}{unselect}} ()
+\begin{DoxyCompactList}\small\item\em Unselects the currently selected drawable object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class for managing the selection of objects on the canvas. 
+
+This class provides functionality for selecting and unselecting drawable objects on the canvas. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_selector_a95ba4920a27b04c762bd35acc0772411}\label{class_selector_a95ba4920a27b04c762bd35acc0772411} 
+\index{Selector@{Selector}!Selector@{Selector}}
+\index{Selector@{Selector}!Selector@{Selector}}
+\doxysubsubsection{\texorpdfstring{Selector()}{Selector()}}
+{\footnotesize\ttfamily Selector.\+Selector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructs a new \doxylink{class_selector}{Selector} object. 
+
+Initializes the selected\+Object to null. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_selector_a2884ddebbb73e405f1b22464469c4981}\label{class_selector_a2884ddebbb73e405f1b22464469c4981} 
+\index{Selector@{Selector}!getSelected@{getSelected}}
+\index{getSelected@{getSelected}!Selector@{Selector}}
+\doxysubsubsection{\texorpdfstring{getSelected()}{getSelected()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interface_drawable}{Drawable}} Selector.\+get\+Selected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the currently selected drawable object. 
+
+\begin{DoxyReturn}{Returns}
+The currently selected drawable object, or null if no object is selected. 
+\end{DoxyReturn}
+\Hypertarget{class_selector_a7b835e44f92f1e38196ee49c27a08b33}\label{class_selector_a7b835e44f92f1e38196ee49c27a08b33} 
+\index{Selector@{Selector}!select@{select}}
+\index{select@{select}!Selector@{Selector}}
+\doxysubsubsection{\texorpdfstring{select()}{select()}}
+{\footnotesize\ttfamily void Selector.\+select (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_drawable}{Drawable}}}]{object }\end{DoxyParamCaption})}
+
+
+
+Selects the specified drawable object. 
+
+Selects the specified drawable object and visually indicates the selection by changing its stroke color and width.
+
+
+\begin{DoxyParams}{Parameters}
+{\em object} & The drawable object to select. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_selector_ae1ebbcac8d47f06867f140aa785526e5}\label{class_selector_ae1ebbcac8d47f06867f140aa785526e5} 
+\index{Selector@{Selector}!unselect@{unselect}}
+\index{unselect@{unselect}!Selector@{Selector}}
+\doxysubsubsection{\texorpdfstring{unselect()}{unselect()}}
+{\footnotesize\ttfamily void Selector.\+unselect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Unselects the currently selected drawable object. 
+
+If there is a selected object, this method removes the visual indication of selection by resetting its stroke color and width, and sets the selected object to null. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_selector_8java}{Selector.\+java}}\end{DoxyCompactItemize}

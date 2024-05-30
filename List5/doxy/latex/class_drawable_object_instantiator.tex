@@ -1,0 +1,61 @@
+\doxysection{Drawable\+Object\+Instantiator Class Reference}
+\hypertarget{class_drawable_object_instantiator}{}\label{class_drawable_object_instantiator}\index{DrawableObjectInstantiator@{DrawableObjectInstantiator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_drawable_object_instantiator_ad73cd2e59a0784df68def586d296f5ec}{Drawable\+Object\+Instantiator}} (Map$<$ String, \mbox{\hyperlink{interface_drawable_object_supplier}{Drawable\+Object\+Supplier}} $>$ type\+Map)
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{class_drawable_object_instantiator}{Drawable\+Object\+Instantiator} with the specified type map. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{interface_drawable}{Drawable}} \mbox{\hyperlink{class_drawable_object_instantiator_a5a0dad844a34d1752bbf5a2f553f85c5}{instantiate}} (\mbox{\hyperlink{class_drawable_object_data}{Drawable\+Object\+Data}} data)  throws Illegal\+Argument\+Exception 
+\begin{DoxyCompactList}\small\item\em Instantiates a \doxylink{interface_drawable}{Drawable} object based on the provided \doxylink{class_drawable_object_data}{Drawable\+Object\+Data}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Instantiates \doxylink{interface_drawable}{Drawable} objects based on provided \doxylink{class_drawable_object_data}{Drawable\+Object\+Data}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_drawable_object_instantiator_ad73cd2e59a0784df68def586d296f5ec}\label{class_drawable_object_instantiator_ad73cd2e59a0784df68def586d296f5ec} 
+\index{DrawableObjectInstantiator@{DrawableObjectInstantiator}!DrawableObjectInstantiator@{DrawableObjectInstantiator}}
+\index{DrawableObjectInstantiator@{DrawableObjectInstantiator}!DrawableObjectInstantiator@{DrawableObjectInstantiator}}
+\doxysubsubsection{\texorpdfstring{DrawableObjectInstantiator()}{DrawableObjectInstantiator()}}
+{\footnotesize\ttfamily Drawable\+Object\+Instantiator.\+Drawable\+Object\+Instantiator (\begin{DoxyParamCaption}\item[{Map$<$ String, \mbox{\hyperlink{interface_drawable_object_supplier}{Drawable\+Object\+Supplier}} $>$}]{type\+Map }\end{DoxyParamCaption})}
+
+
+
+Constructs a new \doxylink{class_drawable_object_instantiator}{Drawable\+Object\+Instantiator} with the specified type map. 
+
+Constructs a new \doxylink{class_drawable_object_instantiator}{Drawable\+Object\+Instantiator} with the specified type map. 
+\begin{DoxyParams}{Parameters}
+{\em type\+Map} & The map containing suppliers for different types of \doxylink{interface_drawable}{Drawable} objects. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_drawable_object_instantiator_a5a0dad844a34d1752bbf5a2f553f85c5}\label{class_drawable_object_instantiator_a5a0dad844a34d1752bbf5a2f553f85c5} 
+\index{DrawableObjectInstantiator@{DrawableObjectInstantiator}!instantiate@{instantiate}}
+\index{instantiate@{instantiate}!DrawableObjectInstantiator@{DrawableObjectInstantiator}}
+\doxysubsubsection{\texorpdfstring{instantiate()}{instantiate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interface_drawable}{Drawable}} Drawable\+Object\+Instantiator.\+instantiate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drawable_object_data}{Drawable\+Object\+Data}}}]{data }\end{DoxyParamCaption}) throws Illegal\+Argument\+Exception}
+
+
+
+Instantiates a \doxylink{interface_drawable}{Drawable} object based on the provided \doxylink{class_drawable_object_data}{Drawable\+Object\+Data}. 
+
+Instantiates a \doxylink{interface_drawable}{Drawable} object based on the provided \doxylink{class_drawable_object_data}{Drawable\+Object\+Data}. 
+\begin{DoxyParams}{Parameters}
+{\em data} & The data used to instantiate the \doxylink{interface_drawable}{Drawable} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The instantiated \doxylink{interface_drawable}{Drawable} object. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & If the \doxylink{interface_drawable}{Drawable} object type is not found in the type map. \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_drawable_object_instantiator_8java}{Drawable\+Object\+Instantiator.\+java}}\end{DoxyCompactItemize}

@@ -1,0 +1,103 @@
+\doxysection{Canvas Class Reference}
+\hypertarget{class_canvas}{}\label{class_canvas}\index{Canvas@{Canvas}}
+Inheritance diagram for Canvas\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_canvas}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_canvas_ac18d8160a1556460b74c9bd64a4ff1fe}{Canvas}} ()
+\begin{DoxyCompactList}\small\item\em Initializes a new \doxylink{class_canvas}{Canvas} object with a list of objects and sets the minimum size. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_canvas_ae4999c31f65588a241f4d2d9a13e0df3}{add\+Controller}} (\mbox{\hyperlink{class_controller}{Controller}} controller)
+\begin{DoxyCompactList}\small\item\em Associates a controller with the canvas. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_canvas_a02545861ce7f27636261baf9e5111756}{add}} (\mbox{\hyperlink{interface_drawable}{Drawable}} object)
+\begin{DoxyCompactList}\small\item\em Adds a drawable object to the canvas and to the controller if it\textquotesingle{}s a Node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_canvas_acc6edf3397e71e74d137b5ae6f2c2db5}{remove}} (\mbox{\hyperlink{interface_drawable}{Drawable}} object)
+\begin{DoxyCompactList}\small\item\em Removes a drawable object from the canvas and from the controller if it\textquotesingle{}s a Node. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{interface_drawable}{Drawable}} $>$ \mbox{\hyperlink{class_canvas_a7247d373c3508c70e7ea8816af45c7d7}{get\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Returns the list of drawable objects on the canvas. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a canvas for drawing objects in a Java\+FX application. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_canvas_ac18d8160a1556460b74c9bd64a4ff1fe}\label{class_canvas_ac18d8160a1556460b74c9bd64a4ff1fe} 
+\index{Canvas@{Canvas}!Canvas@{Canvas}}
+\index{Canvas@{Canvas}!Canvas@{Canvas}}
+\doxysubsubsection{\texorpdfstring{Canvas()}{Canvas()}}
+{\footnotesize\ttfamily Canvas.\+Canvas (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes a new \doxylink{class_canvas}{Canvas} object with a list of objects and sets the minimum size. 
+
+Constructs a new \doxylink{class_canvas}{Canvas} object. Initializes the list of objects and sets the minimum size of the canvas. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_canvas_a02545861ce7f27636261baf9e5111756}\label{class_canvas_a02545861ce7f27636261baf9e5111756} 
+\index{Canvas@{Canvas}!add@{add}}
+\index{add@{add}!Canvas@{Canvas}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void Canvas.\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_drawable}{Drawable}}}]{object }\end{DoxyParamCaption})}
+
+
+
+Adds a drawable object to the canvas and to the controller if it\textquotesingle{}s a Node. 
+
+Adds a drawable object to the canvas. If the object is an instance of Node, it\textquotesingle{}s also added to the canvas\textquotesingle{}s children. 
+\begin{DoxyParams}{Parameters}
+{\em object} & The drawable object to be added to the canvas. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_canvas_ae4999c31f65588a241f4d2d9a13e0df3}\label{class_canvas_ae4999c31f65588a241f4d2d9a13e0df3} 
+\index{Canvas@{Canvas}!addController@{addController}}
+\index{addController@{addController}!Canvas@{Canvas}}
+\doxysubsubsection{\texorpdfstring{addController()}{addController()}}
+{\footnotesize\ttfamily void Canvas.\+add\+Controller (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_controller}{Controller}}}]{controller }\end{DoxyParamCaption})}
+
+
+
+Associates a controller with the canvas. 
+
+Associates a controller with the canvas. 
+\begin{DoxyParams}{Parameters}
+{\em controller} & The controller to be associated with the canvas. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_canvas_a7247d373c3508c70e7ea8816af45c7d7}\label{class_canvas_a7247d373c3508c70e7ea8816af45c7d7} 
+\index{Canvas@{Canvas}!getObjects@{getObjects}}
+\index{getObjects@{getObjects}!Canvas@{Canvas}}
+\doxysubsubsection{\texorpdfstring{getObjects()}{getObjects()}}
+{\footnotesize\ttfamily List$<$ \mbox{\hyperlink{interface_drawable}{Drawable}} $>$ Canvas.\+get\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the list of drawable objects on the canvas. 
+
+Returns the list of drawable objects on the canvas. \begin{DoxyReturn}{Returns}
+The list of drawable objects currently on the canvas. 
+\end{DoxyReturn}
+\Hypertarget{class_canvas_acc6edf3397e71e74d137b5ae6f2c2db5}\label{class_canvas_acc6edf3397e71e74d137b5ae6f2c2db5} 
+\index{Canvas@{Canvas}!remove@{remove}}
+\index{remove@{remove}!Canvas@{Canvas}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily void Canvas.\+remove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_drawable}{Drawable}}}]{object }\end{DoxyParamCaption})}
+
+
+
+Removes a drawable object from the canvas and from the controller if it\textquotesingle{}s a Node. 
+
+Removes a drawable object from the canvas. If the object is an instance of Node, it\textquotesingle{}s also removed from the canvas\textquotesingle{}s children. 
+\begin{DoxyParams}{Parameters}
+{\em object} & The drawable object to be removed from the canvas. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_canvas_8java}{Canvas.\+java}}\end{DoxyCompactItemize}
