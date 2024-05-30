@@ -1,4 +1,3 @@
-import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 public class CellGrid extends GridPane

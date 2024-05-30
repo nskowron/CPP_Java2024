@@ -82,7 +82,7 @@ public class Cell extends Rectangle implements Runnable
             {
                 Platform.runLater(() ->
                 {
-                    ThreadController.logStart(thread);
+                    ThreadLogger.logStart(thread);
 
                     if(random.nextDouble(100.0 + Math.ulp(100.0d)) <= randomColorProbability)
                     {
@@ -120,7 +120,7 @@ public class Cell extends Rectangle implements Runnable
                         }
                     }
 
-                    ThreadController.logEnd(thread);
+                    ThreadLogger.logEnd(thread);
                 });
             }
         }
