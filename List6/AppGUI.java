@@ -24,7 +24,7 @@ public class AppGUI
         TextField probability = new TextField();
         probability.setPromptText("probability");
 
-        Button generate = new GenerateButton(scroll, width, height, sleepTime, probability);
+        Button generate = new GenerateButton(stage, scroll, width, height, sleepTime, probability);
 
         grid.add(width, 0, 0);
         grid.add(height, 1, 0);

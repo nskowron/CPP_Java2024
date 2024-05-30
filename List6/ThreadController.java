@@ -7,11 +7,11 @@ public class ThreadController
 
     public static void logStart(Thread thread)
     {
-        System.out.println("Start: " + thread.threadId());
+        //System.out.println("Start: " + thread.threadId());
     }
 
     public static void logEnd(Thread thread)
     {
-        System.out.println("End: " + thread.threadId());
+        //System.out.println("End: " + thread.threadId());
     }
 }

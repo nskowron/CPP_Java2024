@@ -1,3 +1,5 @@
+import java.util.logging.Level;
+
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,6 +14,8 @@ public class Cell extends Rectangle implements Runnable
     private final Thread thread;
     private Cell[] neighbors;
     private boolean active;
+
+    private boolean running;
 
     public Cell(long sleepTime, double randomColorProbability) throws IllegalArgumentException
     {
@@ -33,6 +37,8 @@ public class Cell extends Rectangle implements Runnable
         neighbors = null;
         active = false;
 
+        running = true;
+
         thread.start();
     }
 
@@ -44,7 +50,13 @@ public class Cell extends Rectangle implements Runnable
         this.setOnMouseClicked(me ->
         {
             active = !active;
+            Logger.logger.log(Level.INFO, "Cell clicked");
         });
+    }
+
+    public void stopThread()
+    {
+        running = false;
     }
 
     public boolean isActive()
@@ -55,19 +67,19 @@ public class Cell extends Rectangle implements Runnable
     @Override
     public void run()
     {
-        while(true)
+        while(running)
         {
+            try
+            {
+                Thread.sleep(random.nextLong(sleepTime) + (int)(sleepTime * 0.5));
+            }
+            catch(InterruptedException e)
+            {
+                ErrorHandler.showError("Thread Interruption error", "Thread nr " + thread.threadId() + " has been interrupted.");
+            }
+
             if(active)
             {
-                try
-                {
-                    Thread.sleep(random.nextLong(sleepTime) + (int)(sleepTime * 0.5));
-                }
-                catch(InterruptedException e)
-                {
-                    ErrorHandler.showError("Thread Interruption error", "Thread nr " + thread.threadId() + " has been interrupted.");
-                }
-
                 Platform.runLater(() ->
                 {
                     ThreadController.logStart(thread);

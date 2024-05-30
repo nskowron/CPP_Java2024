@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 public class CellGrid extends GridPane
@@ -48,5 +49,16 @@ public class CellGrid extends GridPane
         }
 
         return (Cell)getChildren().get(x * height + y);
+    }
+
+    public void stopThreads()
+    {
+        for(int x = 0; x < width; ++x)
+        {
+            for(int y = 0; y < height; ++y)
+            {
+                get(x, y).stopThread();
+            }
+        }
     }
 }
