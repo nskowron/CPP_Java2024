@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.logging.Level;
 
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
@@ -39,28 +38,12 @@ public class Cell extends Thread
         exists = false;
     }
 
-    //
-    public Cell getSelf()
-    {
-        return this;
-    }
-
     public void setup(List<Cell> neighbors) throws IllegalArgumentException
     {
         if(neighbors.size() != 4)
         {
             throw new IllegalArgumentException("Each Cell needs to have 4 neighbors, got: " + neighbors.size());
         }
-
-        //
-        for(Cell n : neighbors)
-        {
-            if(n == this)
-            {
-                Logger.logger.log(Level.INFO, "Impostor found");
-            }
-        }
-        //
 
         this.neighbors = neighbors;
         exists = true;
@@ -97,13 +80,18 @@ public class Cell extends Thread
         return color;
     }
 
-    public synchronized void updateColor()
+    public void updateColor()
     {
-        if(isActive())
+        synchronized(lock)
         {
-            synchronized(lock)
+            ThreadLogger.logStart(this);
+
+            synchronized(this)
             {
-                ThreadLogger.logStart(this);
+                if(!isActive())
+                {
+                    return;
+                }
 
                 if(random.nextDouble(100.0) <= probability)
                 {
@@ -111,19 +99,14 @@ public class Cell extends Thread
                 }
                 else
                 {
-                    synchronized(neighbors.get(0).getSelf())
+                    synchronized(neighbors.get(0))
                     {
-                        Logger.logger.log(Level.INFO, "1st synchro ok");
-                        synchronized(neighbors.get(1).getSelf())
+                        synchronized(neighbors.get(1))
                         {
-                            Logger.logger.log(Level.INFO, "2nd synchro ok");
-                            synchronized(neighbors.get(2).getSelf())
+                            synchronized(neighbors.get(2))
                             {
-                                Logger.logger.log(Level.INFO, "3rd synchro ok");
-                                synchronized(neighbors.get(3).getSelf())
+                                synchronized(neighbors.get(3))
                                 {
-                                    Logger.logger.log(Level.INFO, "4th synchro ok");
-
                                     int activeNeighbors = 0;
                                     double red = 0;
                                     double green = 0;
@@ -150,14 +133,14 @@ public class Cell extends Thread
                         }
                     }
                 }
-
-                Platform.runLater(()->
-                {
-                    guiRect.setFill(color);
-                });
-
-                ThreadLogger.logEnd(this);
             }
+
+            Platform.runLater(()->
+            {
+                guiRect.setFill(color);
+            });
+
+            ThreadLogger.logEnd(this);
         }
     }
 
@@ -166,7 +149,7 @@ public class Cell extends Thread
     {
         while(isExisting())
         {
-            // why
+            updateColor();
 
             try
             {
@@ -177,8 +160,6 @@ public class Cell extends Thread
                 ErrorHandler.showError("Thread error", "Thread nr " + this.threadId() + " has been interrupted.");
                 destroy();
             }
-
-            updateColor();
         }
     }
 }

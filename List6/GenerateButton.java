@@ -11,7 +11,7 @@ public class GenerateButton extends Button
     {
         super("Generate");
 
-        setPrefWidth(60);
+        setPrefWidth(120);
 
         grid = null;
 
