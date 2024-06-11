@@ -1,130 +1,184 @@
+import java.util.List;
 import java.util.logging.Level;
 
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Cell extends Rectangle implements Runnable
+public class Cell extends Thread
 {
-    private static final Randomiser random = new Randomiser();
+    private final Rectangle guiRect;
 
+    private static Randomiser random = new Randomiser();
+
+    private Color color;
+    private final Object lock;
+    private List<Cell> neighbors;
     private final long sleepTime;
-    private final double randomColorProbability;
+    private final double probability;
 
-    private final Thread thread;
-    private Cell[] neighbors;
     private boolean active;
+    private boolean exists;
 
-    private boolean running;
-
-    public Cell(long sleepTime, double randomColorProbability) throws IllegalArgumentException
+    public Cell(Object lock, long sleepTime, double probability)
     {
-        super(30, 30, random.nextColor());
+        color = random.nextColor();
 
-        if(sleepTime <= 0)
+        guiRect = new Rectangle(30, 30, color);
+        guiRect.setOnMouseClicked((me)->
         {
-            throw new IllegalArgumentException("Cell sleep time must be positive, got: " + sleepTime);
-        }
-        if(randomColorProbability < 0)
-        {
-            throw new IllegalArgumentException("Cell probability cannot be negative, got: " + randomColorProbability);
-        }
-
-        this.sleepTime = sleepTime;
-        this.randomColorProbability = randomColorProbability;
-
-        thread = new Thread(this);
-        neighbors = null;
-        active = false;
-
-        running = true;
-
-        thread.start();
-    }
-
-    public void setup(Cell[] neighbors)
-    {
-        this.neighbors = neighbors;
-        active = true;
-        
-        this.setOnMouseClicked(me ->
-        {
-            active = !active;
-            Logger.logger.log(Level.INFO, "Cell clicked");
+            toggleActive();
         });
+
+        neighbors = null;
+        this.lock = lock;
+        this.sleepTime = sleepTime;
+        this.probability = probability;
+
+        active = true;
+        exists = false;
     }
 
-    public void stopThread()
+    //
+    public Cell getSelf()
     {
-        running = false;
+        return this;
     }
 
-    public boolean isActive()
+    public void setup(List<Cell> neighbors) throws IllegalArgumentException
+    {
+        if(neighbors.size() != 4)
+        {
+            throw new IllegalArgumentException("Each Cell needs to have 4 neighbors, got: " + neighbors.size());
+        }
+
+        //
+        for(Cell n : neighbors)
+        {
+            if(n == this)
+            {
+                Logger.logger.log(Level.INFO, "Impostor found");
+            }
+        }
+        //
+
+        this.neighbors = neighbors;
+        exists = true;
+        this.start();
+    }
+
+    public Rectangle getGuiRectangle()
+    {
+        return guiRect;
+    }
+
+    public synchronized boolean isExisting()
+    {
+        return exists;
+    }
+
+    public synchronized void destroy()
+    {
+        exists = false;
+    }
+
+    public synchronized boolean isActive()
     {
         return active;
+    }
+
+    public synchronized void toggleActive()
+    {
+        active = !active;
+    }
+
+    public synchronized Color getColor()
+    {
+        return color;
+    }
+
+    public synchronized void updateColor()
+    {
+        if(isActive())
+        {
+            synchronized(lock)
+            {
+                ThreadLogger.logStart(this);
+
+                if(random.nextDouble(100.0) <= probability)
+                {
+                    color = random.nextColor();
+                }
+                else
+                {
+                    synchronized(neighbors.get(0).getSelf())
+                    {
+                        Logger.logger.log(Level.INFO, "1st synchro ok");
+                        synchronized(neighbors.get(1).getSelf())
+                        {
+                            Logger.logger.log(Level.INFO, "2nd synchro ok");
+                            synchronized(neighbors.get(2).getSelf())
+                            {
+                                Logger.logger.log(Level.INFO, "3rd synchro ok");
+                                synchronized(neighbors.get(3).getSelf())
+                                {
+                                    Logger.logger.log(Level.INFO, "4th synchro ok");
+
+                                    int activeNeighbors = 0;
+                                    double red = 0;
+                                    double green = 0;
+                                    double blue = 0;
+
+                                    for(Cell neighbor : neighbors)
+                                    {
+                                        if(neighbor.isActive())
+                                        {
+                                            activeNeighbors++;
+                                            Color nColor = neighbor.getColor();
+                                            red += nColor.getRed();
+                                            green += nColor.getGreen();
+                                            blue += nColor.getBlue();
+                                        }
+                                    }
+
+                                    if(activeNeighbors != 0)
+                                    {
+                                        color = new Color(red / activeNeighbors, green / activeNeighbors, blue / activeNeighbors, 1.0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Platform.runLater(()->
+                {
+                    guiRect.setFill(color);
+                });
+
+                ThreadLogger.logEnd(this);
+            }
+        }
     }
 
     @Override
     public void run()
     {
-        while(running)
+        while(isExisting())
         {
+            // why
+
             try
             {
-                Thread.sleep(random.nextLong(sleepTime) + (int)(sleepTime * 0.5));
+                Thread.sleep((long)(sleepTime * random.nextDouble(0.5, 1.5)));
             }
             catch(InterruptedException e)
             {
-                ErrorHandler.showError("Thread Interruption error", "Thread nr " + thread.threadId() + " has been interrupted.");
+                ErrorHandler.showError("Thread error", "Thread nr " + this.threadId() + " has been interrupted.");
+                destroy();
             }
 
-            if(active)
-            {
-                Platform.runLater(() ->
-                {
-                    ThreadLogger.logStart(thread);
-
-                    if(random.nextDouble(100.0 + Math.ulp(100.0d)) <= randomColorProbability)
-                    {
-                        setFill(random.nextColor());
-                    }
-                    else
-                    {
-                        double avgRed = 0;
-                        double avgGreen = 0;
-                        double avgBlue = 0;
-                        int count = 0;
-
-                        for(Cell neighbor : neighbors)
-                        {
-                            if(neighbor != null && neighbor.isActive())
-                            {
-                                try
-                                {
-                                    Color neighborColor = (Color)neighbor.getFill();
-                                    avgRed += neighborColor.getRed();
-                                    avgGreen += neighborColor.getGreen();
-                                    avgBlue += neighborColor.getBlue();
-                                    ++count;
-                                }
-                                catch(ClassCastException e)
-                                {
-                                    ErrorHandler.showError("Data reading error", "Could not read Cell color in thread nr " + Thread.currentThread().threadId());
-                                }
-                            }
-                        }
-
-                        if(count != 0)
-                        {
-                            setFill(new Color(avgRed / count, avgGreen / count, avgBlue / count, 1.0));
-                        }
-                    }
-
-                    ThreadLogger.logEnd(thread);
-                });
-            }
+            updateColor();
         }
     }
-
-    
 }

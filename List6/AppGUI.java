@@ -20,9 +20,9 @@ public class AppGUI
         TextField height = new TextField();
         height.setPromptText("height");
         TextField sleepTime = new TextField();
-        sleepTime.setPromptText("sleepTime");
+        sleepTime.setPromptText("sleepTime (ms)");
         TextField probability = new TextField();
-        probability.setPromptText("probability");
+        probability.setPromptText("probability (%)");
 
         Button generate = new GenerateButton(stage, scroll, width, height, sleepTime, probability);
 

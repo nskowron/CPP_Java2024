@@ -11,6 +11,8 @@ public class GenerateButton extends Button
     {
         super("Generate");
 
+        setPrefWidth(60);
+
         grid = null;
 
         setOnAction(ae ->
@@ -18,17 +20,17 @@ public class GenerateButton extends Button
             try
             {
                 CellGrid newGrid = new CellGrid(Integer.parseInt(width.getText()), Integer.parseInt(height.getText()), Long.parseLong(sleepTime.getText()), Double.parseDouble(probability.getText()));
-                scroll.setContent(newGrid);
+                scroll.setContent(newGrid.getGuiGrid());
 
                 if(grid != null)
                 {
-                    grid.stopThreads();
+                    grid.destroy();
                 }
                 
                 grid = newGrid;
                 stage.setOnCloseRequest(we ->
                 {
-                    grid.stopThreads();
+                    grid.destroy();
                 });
             }
             catch(NumberFormatException e)
