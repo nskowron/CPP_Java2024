@@ -9,7 +9,7 @@ public:
     IO() = delete;
     ~IO() = default;
 
-    static void setOutputLine(std::string);
+    static void setOutputLine(const std::string&);
     static std::string getInputLine();
 };
 

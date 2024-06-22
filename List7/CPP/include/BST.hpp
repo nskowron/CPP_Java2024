@@ -8,16 +8,17 @@ template <typename T>
 class BST
 {
 private:
-    template <typename T>
+    template <typename E>
     class Node
     {
-        T value;
-        Node<T>* left;
-        Node<T>* right;
-        Node<T>* parent;
+    public:
+        E value;
+        Node<E>* left;
+        Node<E>* right;
+        Node<E>* parent;
 
-        Node(T val) : value(val) {}
-    }
+        Node(E val) : value(val) {}
+    };
 
     Node<T>* root;
 
@@ -31,7 +32,9 @@ private:
     void insertRec(Node<T>*, const T&);
     Node<T>* removeRec(Node<T>*, const T&);
     bool searchRec(Node<T>*, const T&) const;
-    void printRec() const;
+    //void printRec() const;
 };
+
+#include <BST.cpp>
 
 #endif

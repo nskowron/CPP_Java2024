@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void IO::setOutputLine(std::string line)
+void IO::setOutputLine(const std::string& line)
 {
     std::cout << line << std::endl;
 }
@@ -12,6 +12,6 @@ std::string IO::getInputLine()
     std::cout << "> " << std::endl;
 
     std::string line;
-    std::cin >> line;
+    std::getline(std::cin, line);
     return line;
 }
