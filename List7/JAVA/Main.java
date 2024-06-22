@@ -18,6 +18,8 @@ public class Main
                         return Integer.parseInt(s);
                     }
                 });
+                IO.setOutputLine("Integer Tree created successfully, enter commands below:");
+                IO.setOutputLine("[p]rint, [i]nsert, [d]elete, [f]ind, [q]uit");
                 integerCLI.run();
                 break;
 
@@ -32,6 +34,8 @@ public class Main
                         return Double.parseDouble(s);
                     }
                 });
+                IO.setOutputLine("Double Tree created successfully, enter commands below:");
+                IO.setOutputLine("[p]rint, [i]nsert, [d]elete, [f]ind, [q]uit");
                 doubleCLI.run();
                 break;
 
@@ -46,6 +50,8 @@ public class Main
                         return s;
                     }
                 });
+                IO.setOutputLine("String Tree created successfully, enter commands below:");
+                IO.setOutputLine("[p]rint, [i]nsert, [d]elete, [f]ind, [q]uit");
                 stringCLI.run();
                 break;
 

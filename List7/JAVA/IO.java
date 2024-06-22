@@ -17,7 +17,7 @@ public class IO
 
     public static String getInputLine()
     {
-        System.out.print("> "); //kolorki?
+        System.out.print("> ");
 
         try
         {
