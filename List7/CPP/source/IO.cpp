@@ -9,7 +9,7 @@ void IO::setOutputLine(const std::string& line)
 
 std::string IO::getInputLine()
 {
-    std::cout << "> " << std::endl;
+    std::cout << "> ";
 
     std::string line;
     std::getline(std::cin, line);
