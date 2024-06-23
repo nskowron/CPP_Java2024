@@ -27,7 +27,7 @@ void CLI<T>::run()
 
             try
             {
-                tree.insert(parse(command.at(1)));
+                tree.insert(parse(command.at(1)), command.at(1));
             }
             catch(const std::exception& e)
             {
@@ -77,7 +77,10 @@ void CLI<T>::run()
                 continue;
             }
 
-            //////
+            for(std::string line : tree.print())
+            {
+                IO::setOutputLine(line);
+            }
         }
         else if(main_command == "quit" || main_command == "q")
         {
