@@ -24,7 +24,9 @@ private:
 
 public:
     BST() : root(nullptr) {}
-    ~BST() {}
+    ~BST();
+
+    void destructRec(Node<T>*);
 
     void insert(const T&, const std::string&);
     void remove(const T&);
