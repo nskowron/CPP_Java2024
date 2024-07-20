@@ -1,7 +1,3 @@
-# Main Repository for Lazy People
+# University projects for Basics of Objective Programming
 
-## Active users
-
-### **- H20** *branch: H20*
-### **- Nelly** *branch: Nel*
-### **- Preyik** *branch:*
+### My work: branch *Nel*
