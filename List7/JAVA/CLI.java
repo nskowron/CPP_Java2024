@@ -26,7 +26,7 @@ public class CLI<T extends Comparable<T>>
                 case "draw":
                 case "print":
                 case "p":
-                    if(command.length > 1)
+                    if(command.length != 1)
                     {
                         IO.setOutputLine("Invalid number of arguments to print - should be 0, got: " + (command.length - 1));
                         break;
@@ -48,7 +48,15 @@ public class CLI<T extends Comparable<T>>
                         break;
                     }
 
-                    tree.insert(parser.parse(command[1]));
+                    try
+                    {
+                        tree.insert(parser.parse(command[1]));
+                    }
+                    catch(NumberFormatException e)
+                    {
+                        IO.setOutputLine("Invalid argument to insert: " + command[1]);
+                    }
+                    
                     break;
 
                 case "delete":
@@ -61,7 +69,15 @@ public class CLI<T extends Comparable<T>>
                         break;
                     }
 
-                    tree.delete(parser.parse(command[1]));
+                    try
+                    {
+                        tree.delete(parser.parse(command[1]));
+                    }
+                    catch(NumberFormatException e)
+                    {
+                        IO.setOutputLine("Invalid argument to delete: " + command[1]);
+                    }
+
                     break;
 
                 case "search":
@@ -74,7 +90,16 @@ public class CLI<T extends Comparable<T>>
                         break;
                     }
 
-                    IO.setOutputLine(command[1] + (tree.search(parser.parse(command[1])) ? " is present in the Tree." : " is not present in the Tree."));
+                    try
+                    {
+                        T argument = parser.parse(command[1]);
+                        IO.setOutputLine(command[1] + (tree.search(argument) ? " is present in the Tree." : " is not present in the Tree."));
+                    }
+                    catch(NumberFormatException e)
+                    {
+                        IO.setOutputLine("Invalid argument to insert: " + command[1]);
+                    }
+
                     break;
 
                 case "quit":
