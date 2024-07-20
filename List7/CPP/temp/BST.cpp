@@ -5,6 +5,25 @@
 #include <string>
 
 template <typename T>
+BST<T>::~BST()
+{
+    destructRec(root);
+}
+
+template <typename T>
+void BST<T>::destructRec(Node<T>* node)
+{
+    if(node == nullptr)
+    {
+        return;
+    }
+
+    destructRec(node->left);
+    destructRec(node->right);
+    delete node;
+}
+
+template <typename T>
 void BST<T>::insertRec(Node<T>* node, const T& value, const std::string& rep)
 {
     if(value < node->value)
